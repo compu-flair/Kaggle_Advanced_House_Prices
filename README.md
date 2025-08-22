@@ -88,6 +88,7 @@ docker run -p 8501:8501 house-prices-app
 
 ### Step 1: Data Cleaning & Feature Engineering
 - Open and run `Data_Cleaning_and_Feature_Engineering_Final_Version.ipynb` to preprocess and engineer features from the raw data.
+- Follow up to train a Linear Regression Model on this difficult case.
 
 ### Step 2: Train Model (if needed)
 - Use scripts or notebook to train and save models in `models/` (default model provided).
@@ -98,6 +99,7 @@ docker run -p 8501:8501 house-prices-app
 	streamlit run main.py
 	```
 - Use the sidebar to select between house price prediction and custom regression modules.
+- Train your own model on your own data using the custom regression module.
 
 
 ---
@@ -109,5 +111,9 @@ docker run -p 8501:8501 house-prices-app
 - **Model:** The trained linear regression model is stored in `models/linear_regression_model.pkl`.
 - **Data:** Cleaned datasets are in `data/new_train.csv` and `data/new_test.csv`.
 - **Notebook:** All preprocessing and feature engineering steps are documented in the notebook.
+- **Evaluation Metrics:**  
+    - *Mean Absolute Error (MAE):* Measures the average absolute difference between predicted and actual prices. Lower values indicate better accuracy.
+    - *Mean Squared Error (MSE):* Measures the average squared difference between predicted and actual prices. It penalizes larger errors more than MAE.  
+        **Notebook Result:** 711,102,117.35
 
 For more details, see comments in code and notebook sections.
