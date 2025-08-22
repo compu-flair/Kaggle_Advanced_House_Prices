@@ -7,7 +7,11 @@ from configs.config import HOUSE_PRICE_TAB as TABE_NAME
 
 def run_house_price_app():
     # Load the model
-    model = pickle.load(open('models/linear_regression_model.pkl', 'rb'))
+    try:
+        model = pickle.load(open('models/linear_regression_model.pkl', 'rb'))
+    except (FileNotFoundError, pickle.UnpicklingError) as e:
+        st.error("Trained model file not found. Please train the model first by running the `data_cleaning_and_feature_engineering.ipynb` notebook.")
+        return
 
     for fname, ftype in FEATURES:
         setattr(GaragePredictRequest, fname, ftype)
