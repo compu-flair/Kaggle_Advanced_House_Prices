@@ -21,7 +21,7 @@ This project predicts house prices using the Ames Housing dataset. It demonstrat
 ├── models/              # Trained model(s)
 │   └── linear_regression_model.pkl
 │
-├── configs/             # App configuration
+├── configs/             # App configuration, mostly for the streamlit app
 │   └── config.py
 │
 ├── views/               # Streamlit app logic
@@ -32,7 +32,7 @@ This project predicts house prices using the Ames Housing dataset. It demonstrat
 ├── main.py              # Streamlit entry point
 ├── requirements.txt     # Python dependencies
 ├── Dockerfile           # Containerization
-├── start.sh             # Shell script to launch app
+├── start.sh             # Shell script to launch app with docker
 ├── LICENSE.txt
 └── README.md            # This file
 ```
@@ -50,11 +50,20 @@ cd Kaggle_Advanced_House_Prices
 ```
 
 
-### 2. (Optional) Create and activate a virtual environment
+### Option.1 Create and activate a virtual environment
+
+#### Linux/macOS
 
 ```bash
-python -m venv .venv
+python3 -m venv .venv
 source .venv/bin/activate
+```
+
+#### Windows
+
+```bat
+python -m venv .venv
+.\.venv\Scripts\activate
 ```
 
 
@@ -65,7 +74,7 @@ pip install -r requirements.txt
 ```
 
 
-### 4. (Optional) Run in Docker
+### Option.2 Run in Docker
 
 ```bash
 docker build -t house-prices-app .
@@ -102,6 +111,3 @@ docker run -p 8501:8501 house-prices-app
 - **Notebook:** All preprocessing and feature engineering steps are documented in the notebook.
 
 For more details, see comments in code and notebook sections.
-
-
-
