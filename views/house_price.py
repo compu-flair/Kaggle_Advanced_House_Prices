@@ -49,7 +49,6 @@ def run_house_price_app():
         st.success(f"Predicted Value: {float(prediction[0]):.2f}")
 
     # Only show sidebar if this tab is selected
-    print("Selected tab:", st.session_state.get("selected_tab"))
     if st.session_state.get("selected_tab") == TABE_NAME:
         with st.sidebar:
             st.markdown(

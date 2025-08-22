@@ -35,10 +35,8 @@ def custom_model_linear_regression_app():
         corr_matrix = df.corr(numeric_only=True)
         st.write(corr_matrix)
         fig = plt.figure(figsize=(20, 16))
-        print("Will show correlation matrices")
         sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', fmt=".2f", square=True, cbar_kws={"shrink": .8})
         st.pyplot(fig)
-        print("did show correlation matrices")
 
         target = st.selectbox("Select label (Y) column", df.columns)
         features = st.multiselect(
