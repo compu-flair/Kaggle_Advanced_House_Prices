@@ -11,17 +11,19 @@ import seaborn as sns
 from configs.config import CUSTOM_APP_TAB
 
 def custom_model_linear_regression_app():
+    # Set the title and tab for the Streamlit app
     st.title("Custom Model Linear Regression Training")
     st.session_state["selected_tab"] = CUSTOM_APP_TAB
 
+    # File uploader for CSV data
     uploaded_file = st.file_uploader("Upload CSV file", type=["csv"])
 
     if uploaded_file:
+        # Read uploaded CSV into DataFrame
         df = pd.read_csv(uploaded_file)
         st.write("Data Preview:", df.head())
 
-
-        # Display information about nun values, median and means of each column
+        # Display summary statistics and missing values
         st.subheader("Data Summary")
         st.write("Number of missing values:")
         st.write(df.isnull().sum())
@@ -38,29 +40,31 @@ def custom_model_linear_regression_app():
         sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', fmt=".2f", square=True, cbar_kws={"shrink": .8})
         st.pyplot(fig)
 
+        # Select target and feature columns
         target = st.selectbox("Select label (Y) column", df.columns)
         features = st.multiselect(
             "Select feature columns (X)", [col for col in df.columns if col != target]
         )
 
         if features and target:
-            # Store model and feature info in session state to persist after training
+            # Initialize session state for model and feature info
             if "trained_model" not in st.session_state:
                 st.session_state["trained_model"] = None
                 st.session_state["numeric_features"] = []
                 st.session_state["categorical_features"] = []
 
+            # Button to start training
             if st.button("Start Training", key="start_training_btn"):
-                # Clean data: drop rows with NaN values in selected features or target
+                # Drop rows with missing values in selected columns
                 clean_df = df[features + [target]].dropna()
                 X = clean_df[features]
                 y = clean_df[target]
 
-                # Identify column types
+                # Identify numeric and categorical features
                 numeric_features = X.select_dtypes(include=['int64', 'float64']).columns.tolist()
                 categorical_features = X.select_dtypes(include=['object', 'category']).columns.tolist()
 
-                # Preprocessing
+                # Preprocessing pipeline for numeric and categorical features
                 preprocessor = ColumnTransformer(
                     transformers=[
                         ('num', StandardScaler(), numeric_features),
@@ -68,26 +72,27 @@ def custom_model_linear_regression_app():
                     ]
                 )
 
-                # Pipeline
+                # Full pipeline: preprocessing + regression model
                 model = Pipeline(steps=[
                     ('preprocessor', preprocessor),
                     ('regressor', LinearRegression())
                 ])
 
-                # Train/test split
+                # Split data into train and test sets
                 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-                # Train
+                # Train the model
                 model.fit(X_train, y_train)
                 score = model.score(X_test, y_test)
 
-                # Predictions
+                # Make predictions on test set
                 y_pred = model.predict(X_test)
 
-                # Evaluation metrics
+                # Calculate evaluation metrics
                 mae = mean_absolute_error(y_test, y_pred)
                 mse = mean_squared_error(y_test, y_pred)
 
+                # Display model performance
                 st.write(f"Model R^2 score on test set: {score:.4f}")
                 st.write(f"Mean Absolute Error (MAE): {mae:.4f}")
                 st.write(f"Mean Squared Error (MSE): {mse:.4f}")
@@ -99,7 +104,7 @@ def custom_model_linear_regression_app():
                 st.session_state["selected_features"] = features
                 st.session_state["df"] = df
 
-            # Show prediction section if model is trained
+            # Prediction section: only show if model is trained
             if st.session_state.get("trained_model") is not None:
                 st.subheader("Make a Prediction")
                 input_data = {}
@@ -108,6 +113,7 @@ def custom_model_linear_regression_app():
                 categorical_features = st.session_state["categorical_features"]
                 selected_features = st.session_state["selected_features"]
 
+                # Input widgets for each feature
                 for feature in selected_features:
                     if feature in numeric_features:
                         val = st.number_input(f"Input value for {feature}", value=float(df_for_input[feature].mean()))
@@ -115,13 +121,16 @@ def custom_model_linear_regression_app():
                         val = st.selectbox(f"Input value for {feature}", options=df_for_input[feature].unique())
                     input_data[feature] = val
 
+                # Initialize prediction result in session state
                 if "prediction_result" not in st.session_state:
                     st.session_state["prediction_result"] = None
 
+                # Button to make prediction
                 if st.button("Predict", key="predict_btn"):
                     input_df = pd.DataFrame([input_data])
                     pred = st.session_state["trained_model"].predict(input_df)[0]
                     st.session_state["prediction_result"] = f"Predicted value: {pred:.4f}"
 
+                # Display prediction result
                 if st.session_state.get("prediction_result"):
                     st.write(st.session_state["prediction_result"])
