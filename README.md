@@ -115,3 +115,12 @@ For more details, see comments in code and notebook sections.
 
 ## 🚀 Showcase
 
+1. Go to `https://github.com/{github_user_name}tab=repositories` Make sure to replace it with your username. 
+2. On your top right you will find a new green icon <img width="146" height="75" alt="image" src="https://github.com/user-attachments/assets/a1e46b4f-51aa-433a-bffd-9eb7a36f1597" />
+, press on it to create a new repository.
+3. Fill in your repository information.
+4. In the `Add .gitignore` section, you can choose a python template to automatically ignore all python types of un-necessary generated files.
+5. After creating your repo, you will find instructions on how to clone your repo to your personal device.
+6. Now you can start creating your code.
+
+### Tips & Tricks on Showcasing
