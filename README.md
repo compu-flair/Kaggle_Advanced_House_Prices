@@ -77,8 +77,14 @@ pip install -r requirements.txt
 ### Option.2 Run in Docker
 
 ```bash
-docker build -t house-prices-app .
-docker run -p 8501:8501 house-prices-app
+docker build -t streamlit_app .
+docker run --rm -p 8501:8501 streamlit_app
+
+```
+Or you can use the bash script to run these commands for you using the following command:
+
+```bash
+bash start.sh
 ```
 
 ---
