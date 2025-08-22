@@ -112,3 +112,6 @@ bash start.sh
         **Notebook Result:** 711,102,117.35 MSE
 
 For more details, see comments in code and notebook sections.
+
+## 🚀 Showcase
+
