@@ -1,95 +1,107 @@
-# 📊 Project Title: *[write title here]*
+# 📊 Project Title: *Advanced House Prices Prediction*
 
 ## Overview
 
-[Write an overall reason for doing this project, i.e. what problem does this project solve?].
+This project predicts house prices using the Ames Housing dataset. It demonstrates a full machine learning workflow: data cleaning, feature engineering, model training, and deployment via a Streamlit web app. The goal is to provide accurate price predictions and a reproducible pipeline for advanced regression tasks.
 
 ---
 
+
 ## 📁 Project Structure
 
-[Remove the following and replace with actual project structure. Make sure each file has easy to understand description]
 ```
-project-name/
+├── data/                # Datasets and description
+│   ├── train.csv        # Training data
+│   ├── test.csv         # Test data
+│   ├── new_train.csv    # Cleaned/engineered train data
+│   ├── new_test.csv     # Cleaned/engineered test data
+│   ├── sample_submission.csv
+│   └── data_description.txt
 │
-├── data/                                 # Raw and processed datasets
-│   ├── raw_data.csv                      # Original dataset from this source
-│   ├── processed_data.csv                # Cleaned and feature-engineered dataset used for modeling
-│   └── data_description.md               # Notes describing the dataset, columns, and assumptions
+├── models/              # Trained model(s)
+│   └── linear_regression_model.pkl
 │
-├── notebooks/                            # Jupyter notebooks for EDA, modeling, and evaluation
-│   ├── 01_data_exploration.ipynb         # Explore dataset structure, column types, and basic stats
-│   ├── 02_data_cleaning.ipynb            # Handle missing values, outliers, and type conversions
-│   ├── 03_eda.ipynb                      # Visualize distributions and relationships between features
-│   ├── 04_feature_engineering.ipynb      # Create new variables and transform existing ones
-│   ├── 05_model_training.ipynb           # Train different machine learning models
-│   ├── 06_model_evaluation.ipynb         # Evaluate model performance using various metrics
-│   └── 07_conclusion_and_next_steps.ipynb# Summarize insights, results, and suggest improvements
+├── configs/             # App configuration
+│   └── config.py
 │
-├── src/                                  # Scripts for reusable code (cleaning, modeling, etc.)
-│   ├── data_preprocessing.py             # Functions for cleaning and preparing the dataset
-│   ├── feature_engineering.py            # Code for creating or transforming features
-│   ├── train_model.py                    # Script to train models and save them to disk
-│   ├── evaluate_model.py                 # Functions to calculate accuracy, RMSE, confusion matrix, etc.
-│   └── utils.py                          # General utility functions used across scripts
+├── views/               # Streamlit app logic
+│   ├── house_price.py   # Main house price prediction UI
+│   └── custom_app.py    # Custom regression UI
 │
-├── models/                               # Saved trained models for reuse or deployment
-│   ├── best_model.pkl                    # Serialized best model using pickle
-│   └── model_metadata.json               # Stores model parameters, training time, metrics, etc.
-│
-├── outputs/                              # Generated plots, reports, or predictions
-│   ├── eda_visuals/                      # Folder for EDA charts (histograms, correlation heatmaps)
-│   │   └── feature_distribution.png      # Sample plot showing distribution of a feature
-│   ├── model_outputs/                    # Predictions, confusion matrices, performance plots
-│   │   ├── predictions.csv               # Model predictions on test/validation set
-│   │   └── confusion_matrix.png          # Visual representation of model classification results
-│   └── report_summary.md                 # A written summary of final model performance and findings
-│
-├── requirements.txt                      # List of Python packages needed to run the project
-├── README.md                             # Project description and usage guide (this file)
-└── .gitignore                            # Ignore virtual environments, model files, etc. in Git
-
+├── Data_Cleaning_and_Feature_Engineering_Final_Version.ipynb # Notebook for data cleaning & feature engineering
+├── main.py              # Streamlit entry point
+├── requirements.txt     # Python dependencies
+├── Dockerfile           # Containerization
+├── start.sh             # Shell script to launch app
+├── LICENSE.txt
+└── README.md            # This file
 ```
 
 ---
 
 ## 🔧 Setup and Installation Instructions
 
-### 1. Download the repository
+
+### 1. Clone the repository
 
 ```bash
-wget [google drive link here]
+git clone <repo-url>
+cd Kaggle_Advanced_House_Prices
 ```
 
-### 2. Create a virtual environment and activate it
+
+### 2. (Optional) Create and activate a virtual environment
 
 ```bash
 python -m venv .venv
-source .venv/bin/activate   # On Windows: .venv\Scripts\activate
+source .venv/bin/activate
 ```
+
 
 ### 3. Install dependencies
 
 ```bash
 pip install -r requirements.txt
-[more installation here (if needed)]
 ```
 
-### ?. [add as many steps as needed] [what is this step about]
+
+### 4. (Optional) Run in Docker
+
+```bash
+docker build -t house-prices-app .
+docker run -p 8501:8501 house-prices-app
+```
 
 ---
+
 
 ## 🛠️ Step-by-Step Guide
-[in steps write how to run this project. That means run file-path-1 then run file-path-2 then .... Note: exclusively use the `### Step ?` as in example below. ]
 
-### Step [add the step number here]:
-[run <u>this</u> file <u>this</u> way to get <u>this</u>]
+### Step 1: Data Cleaning & Feature Engineering
+- Open and run `Data_Cleaning_and_Feature_Engineering_Final_Version.ipynb` to preprocess and engineer features from the raw data.
+
+### Step 2: Train Model (if needed)
+- Use scripts or notebook to train and save models in `models/` (default model provided).
+
+### Step 3: Launch the Streamlit App
+- Run the following command:
+	```bash
+	streamlit run main.py
+	```
+- Use the sidebar to select between house price prediction and custom regression modules.
 
 
 ---
 
+
 ## 📊 Results
-[write a description of how to interpret the results. Point to where the final numbers or tables or files are, and what each one of them mean]
+
+- **Predictions:** View predicted house prices in the Streamlit app UI.
+- **Model:** The trained linear regression model is stored in `models/linear_regression_model.pkl`.
+- **Data:** Cleaned datasets are in `data/new_train.csv` and `data/new_test.csv`.
+- **Notebook:** All preprocessing and feature engineering steps are documented in the notebook.
+
+For more details, see comments in code and notebook sections.
 
 
 
