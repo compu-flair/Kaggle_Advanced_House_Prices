@@ -85,6 +85,26 @@ bash start.sh
 
 ## 🛠️ Step-by-Step Guide
 
+### 🏆 Kaggle Setup
+
+To use Kaggle datasets or APIs, you need to set up your Kaggle credentials:
+
+1. 🔗 Go to your Kaggle account settings: [https://www.kaggle.com/account](https://www.kaggle.com/account).
+2. 🛡️ Scroll down to the **API** section and click **Create New API Token**.
+3. 📥 This will download a file named `kaggle.json`.
+4. 📂 Place `kaggle.json` in the folder:  
+    - 🐧 **Linux/macOS:** `~/.kaggle/` or sometimes in `~/.config/kaggle/kaggle.json`
+    - 🪟 **Windows:** `C:\Users\<YourUsername>\.kaggle\`
+5. 🔒 Make sure the file permissions are secure (Linux/macOS):
+    ```bash
+    chmod 600 ~/.kaggle/kaggle.json
+    ```
+6. 📦 You can now use the Kaggle CLI to download datasets:
+    ```bash
+    kaggle competitions download -c house-prices-advanced-regression-techniques -p data/
+    ```
+
+
 ### 1️⃣ Data Cleaning & Feature Engineering
 - Open and run `Data_Cleaning_and_Feature_Engineering_Final_Version.ipynb` to preprocess and engineer features from the raw data.
 - Follow up to train a Linear Regression Model on this difficult case.
