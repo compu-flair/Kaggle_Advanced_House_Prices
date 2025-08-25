@@ -114,3 +114,4 @@ cython_debug/
 
 # pickle files
 *.pkl
+*.zip
