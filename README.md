@@ -9,7 +9,7 @@ This project predicts house prices using the Ames Housing dataset, showcasing a 
 - 🧹 **Data Cleaning & Feature Engineering:** Raw data is preprocessed and transformed for optimal model performance.
 - 🤖 **Model Training:** A linear regression model is trained on the engineered features. Users can also train custom regression models directly within the Streamlit app using their own data.
 - 🚀 **Deployment:** The Streamlit web app provides an interactive UI for predictions, custom model training, and basic analysis of results.
-- 📊 **Analysis:** The app displays key evaluation metrics (MAE, MSE) and visualizations to help interpret model performance.
+- 📊 **Analysis:** The app displays key evaluation metrics (MAE, MSE, RMSE) and visualizations to help interpret model performance.
 
 The pipeline is designed for reproducibility and flexibility in advanced regression tasks.
 
