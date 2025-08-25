@@ -2,6 +2,8 @@
 
 ## 🏠 Overview
 
+The dataset belongs to a never ending competition leaderboard on kaggle where the best score 0.00000, 0.00003 and 0.00044 of Root-Mean-Squared-Error (RMSE). [For More Info.](https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques/overview)
+
 This project predicts house prices using the Ames Housing dataset, showcasing a complete machine learning workflow:
 
 - 🧹 **Data Cleaning & Feature Engineering:** Raw data is preprocessed and transformed for optimal model performance.
@@ -108,8 +110,17 @@ bash start.sh
 - **Notebook:** 📓 All preprocessing and feature engineering steps are documented in the notebook.
 - **Evaluation Metrics:**  
     - *📉 Mean Absolute Error (MAE):* Measures the average absolute difference between predicted and actual prices. Lower values indicate better accuracy.
-    - *📈 Mean Squared Error (MSE):* Measures the average squared difference between predicted and actual prices. It penalizes larger errors more than MAE.  
-        **Notebook Result:** 711,102,117.35 MSE
+        - **Linear Regression:** 19,452.09
+        - **XGBoost:** 16,483.55 (better)
+    - *📈 Mean Squared Error (MSE):* Measures the average squared difference between predicted and actual prices. It penalizes larger errors more than MAE.
+        - **Linear Regression:** 711,102,117.35
+        - **XGBoost:** 578,007,680.00 (lower is better)
+    - *📊 Root Mean Squared Error (RMSE):* Represents the square root of MSE, providing error in the same units as the target variable. RMSE is sensitive to large errors (outliers) because it squares the differences.
+        - **Linear Regression:** 26,666.50
+        - **XGBoost:** 24,041.79 (lower is better)
+
+    > **Interpretation:**  
+    XGBoost outperforms Linear Regression on MAE, MSE, and RMSE, indicating more accurate and robust predictions for house prices.
 
 For more details, see comments in code and notebook sections.
 
