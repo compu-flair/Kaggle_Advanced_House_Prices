@@ -59,6 +59,16 @@ conda env create -f environment.yml
 conda activate kaggle-house-prices
 ```
 
+#### Add conda to your kernel.
+
+   ```bash
+   conda install ipykernel
+   python -m ipykernel install --user --name loan-approval --display-name "Loan Approval"
+   ```
+1. In VSCode Press `Ctrl+Shift+P` and select "Python: Select Interpreter", then choose the "Loan Approval" interpreter.
+2. Once you open the Jupyter Notebook, it should automatically use the "Loan Approval" kernel. If not, please restart VSCode. And if not successful, then on the top right corner of the notebook, you can manually select the kernel by clicking on it and choosing "Loan Approval". You most likely will find it in the Jupyter kernel list.
+   
+
 #### 🪟 Windows
 
 ```bat
