@@ -6,3 +6,4 @@ numpy==2.3.2
 matplotlib==3.10.5
 seaborn==0.13.2
 xgboost==3.0.4
+kaggle==1.7.4.5
