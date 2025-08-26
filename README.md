@@ -49,8 +49,14 @@ The pipeline is designed for reproducibility and flexibility in advanced regress
 #### 🐧 Linux/macOS
 
 ```bash
-python3 -m venv .venv
+python3.11 -m venv .venv
 source .venv/bin/activate
+```
+
+Or alternatively:
+```bash
+conda env create -f environment.yml
+conda activate kaggle-house-prices
 ```
 
 #### 🪟 Windows
@@ -103,6 +109,7 @@ To use Kaggle datasets or APIs, you need to set up your Kaggle credentials:
     ```bash
     kaggle competitions download -c house-prices-advanced-regression-techniques -p data/
     ```
+
 
 
 ### 1️⃣ Data Cleaning & Feature Engineering
