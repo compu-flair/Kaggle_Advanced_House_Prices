@@ -105,7 +105,9 @@ To use Kaggle datasets or APIs, you need to set up your Kaggle credentials:
     ```bash
     chmod 600 ~/.kaggle/kaggle.json
     ```
-6. 📦 You can now use the Kaggle CLI to download datasets:
+6. In order to be able to download the dataset you must join the competition and [accept the rules.](https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques/overview)
+
+7. 📦 You can now use the Kaggle CLI to download datasets:
     ```bash
     kaggle competitions download -c house-prices-advanced-regression-techniques -p data/
     ```
@@ -113,11 +115,11 @@ To use Kaggle datasets or APIs, you need to set up your Kaggle credentials:
 
 
 ### 1️⃣ Data Cleaning & Feature Engineering
-- Open and run `Data_Cleaning_and_Feature_Engineering_Final_Version.ipynb` to preprocess and engineer features from the raw data.
+- Open and run `data_cleaning_and_feature_engineering.ipynb` to preprocess and engineer features from the raw data.
 - Follow up to train a Linear Regression Model on this difficult case.
 
 ### 2️⃣ Train Model (if needed)
-- Use scripts or notebook to train and save models in `models/` (default model provided).
+- Use scripts or notebook to train and save models in `models/` (default model provided). Note: By running the `data_cleaning_and_feature_engineering.ipynb` notebook, it will train the model and save it automatically.
 
 ### 3️⃣ Launch the Streamlit App
 - Run the following command or using docker:
@@ -150,6 +152,14 @@ To use Kaggle datasets or APIs, you need to set up your Kaggle credentials:
     XGBoost outperforms Linear Regression on MAE, MSE, and RMSE, indicating more accurate and robust predictions for house prices.
 
 For more details, see comments in code and notebook sections.
+
+### 💡 Suggestions for Improvements
+
+* 📊 Add more visualizations in the EDA section to better understand feature distributions and relationships.
+* 🚀 Try CatBoost or LightGBM for potentially better performance.
+* 🛠️ Experiment with different feature engineering techniques to improve model performance.
+* 🤝 Use ensemble methods to combine multiple models for better predictions.
+* 🎯 Fine-tune hyperparameters using techniques like Grid Search or Random Search.
 
 ## 🚀 Showcase
 
