@@ -1,0 +1,50 @@
+
+# Setup ⚙️
+
+## Python Environment Setup (Recommended) 🐍
+1. Create a virtual environment:
+
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows use: venv\Scripts\activate
+   ```
+
+2. Install the required Python packages:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+
+## Conda Environment Setup (Optional) 🐍
+
+1. Install [Miniconda](https://docs.conda.io/en/latest/miniconda.html) or [Anaconda](https://www.anaconda.com/products/distribution) if you don't have it.
+2. Create the environment:
+
+   ```bash
+   conda env create -f environment.yml
+   ```
+
+3. Activate the environment:
+
+   ```bash
+   conda activate <environment-name>
+   ```
+
+4. (Optional) Update the environment if you change dependencies:
+
+   ```bash
+   conda env update -f environment.yml --prune
+   ```
+
+5. Add conda kernel to jupyter notebook:
+
+   ```bash
+   conda install ipykernel
+   python -m ipykernel install --user --name <environment-name> --display-name "<environment-display-name>"
+   ```
+6. In VSCode Press `Ctrl+Shift+P` and select "Python: Select Interpreter", then choose the "<environment-display-name>" interpreter.
+7. Once you open the Jupyter Notebook, it should automatically use the "<environment-display-name>" kernel. If not, please restart VSCode. And if not successful, then on the top right corner of the notebook, you can manually select the kernel by clicking on it and choosing "<environment-display-name>". You most likely will find it in the Jupyter kernel list.
+
+This will install all required packages for running the notebook and scripts.
+
