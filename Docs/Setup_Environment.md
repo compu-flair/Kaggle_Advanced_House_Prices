@@ -1,22 +1,8 @@
 
 # Setup ⚙️
 
-## Python Environment Setup (Recommended) 🐍
-1. Create a virtual environment:
 
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows use: venv\Scripts\activate
-   ```
-
-2. Install the required Python packages:
-
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-
-## Conda Environment Setup (Optional) 🐍
+## Conda Environment Setup (Recommended) 🐍
 
 1. Install [Miniconda](https://docs.conda.io/en/latest/miniconda.html) or [Anaconda](https://www.anaconda.com/products/distribution) if you don't have it.
 2. Create the environment:
@@ -48,3 +34,17 @@
 
 This will install all required packages for running the notebook and scripts.
 
+
+## Python Environment Setup (Alternative) 🐍
+1. Create a virtual environment:
+
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows use: venv\Scripts\activate
+   ```
+
+2. Install the required Python packages:
+
+   ```bash
+   pip install -r requirements.txt
+   ```

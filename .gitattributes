@@ -1,0 +1,7 @@
+# Git attributes for handling specific file types
+
+# Model files - treat as binary and track with LFS if needed
+models/linear_regression_model.pkl binary
+
+# Pickle files in general
+*.pkl binary
