@@ -118,3 +118,10 @@ cython_debug/
 
 submission.csv
 .env
+
+
+data/data_description.txt
+data/new_test.csv
+data/new_train.csv
+data/test.csv
+data/sample_submission.csv
