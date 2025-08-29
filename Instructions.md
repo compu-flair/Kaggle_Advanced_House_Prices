@@ -33,7 +33,7 @@ Choose one of the following setup methods and follow the detailed instructions i
 **Quick Setup:**
 ```bash
 # Clone the repository
-git clone <repository-url>
+git clone git@github.com:compu-flair/Kaggle_Advanced_House_Prices.git
 cd Kaggle_Advanced_House_Prices
 
 # Create virtual environment
@@ -72,66 +72,18 @@ Before you can download the dataset, you need to set up Kaggle credentials. Foll
 
 ### Step 4: Data Exploration and Cleaning
 
-**🎯 Project Status:** Data Preparation (Phase 1 of 4)
+**🎯 Project Status:** Data Preparation
 
 2. **Open the Jupyter Notebook**
    ```bash
    jupyter notebook data_cleaning_and_feature_engineering.ipynb
    ```
 
-3. **Execute Phase 1: Data Loading and Exploration**
-   - **Data Loading**: Import and examine the raw dataset
-   - **Exploratory Data Analysis (EDA)**: Understand data distributions and relationships
-   
-   **📁 Key File:** `data_cleaning_and_feature_engineering.ipynb`
-   - This is your main working file containing the complete ML pipeline
-   - Follow each section carefully to understand the data science workflow
-   - Execute cells step by step to see immediate results
+3. **Go through the notebook, read, understand, and run cells one by one.**
 
-   **💡 What you're learning:**
-   - How to identify and handle missing data
-   - Understanding feature distributions and correlations
-   - Identifying outliers and anomalies in the dataset
 
-4. **Execute Phase 2: Data Cleaning**
-   - **Data Cleaning**: Handle missing values, outliers, and inconsistencies
-   - **Feature Engineering**: Create new features and transform existing ones
-   - **Data Preprocessing**: Prepare data for machine learning
 
-   **💡 What you're learning:**
-   - Feature scaling and normalization techniques
-   - Creating meaningful features from raw data
-   - Dealing with categorical variables (encoding techniques)
-   - Data transformation strategies
-
-   **✅ Checkpoint:** After this step, you should have:
-   - Clean training and test datasets
-   - New engineered features
-   - Processed data saved as `new_train.csv` and `new_test.csv`
-
-### Step 5: Model Development and Training
-
-**🎯 Project Status:** Model Building (Phase 2 of 4)
-
-5. **Execute Phase 3: Baseline Model Training**
-   - Train a Linear Regression model as a starting point
-   - Understand the training process and evaluation metrics
-
-   **💡 Model Evaluation Metrics:**
-   - **MAE (Mean Absolute Error)**: Average absolute difference between predictions and actual values
-   - **MSE (Mean Squared Error)**: Average squared difference (penalizes larger errors)
-   - **RMSE (Root Mean Squared Error)**: Square root of MSE (same units as target)
-
-6. **Execute Phase 4: Advanced Models (Optional)**
-   - Experiment with XGBoost for better performance
-   - Compare different algorithms and their results
-
-   **✅ Checkpoint:** After this step, you should have:
-   - A trained Linear Regression model saved as `linear_regression_model.pkl`
-   - Model performance metrics documented
-   - Understanding of different algorithm performances
-
-### Step 6: Web Application Development
+### Step 5: Web Application Development
 
 **🎯 Project Status:** Deployment (Phase 3 of 4)
 
@@ -175,7 +127,7 @@ Before you can download the dataset, you need to set up Kaggle credentials. Foll
    - Ability to make predictions through the UI
    - Understanding of how ML models integrate with web interfaces
 
-### Step 7: Results Analysis and Improvement
+### Step 6: Results Analysis and Improvement
 
 **🎯 Project Status:** Analysis and Optimization (Phase 4 of 4)
 
@@ -220,6 +172,24 @@ If you prefer containerized deployment:
 **💡 When to use Docker:** Choose this option if you want to deploy the application in a production environment or if you're having dependency conflicts.
 
 
+## 🎉 Showcase Your Work
+
+Follow the [GitHub Showcase Guide](./Docs/Show_Case_Github.md) to:
+- Create an impressive GitHub repository
+- Write a professional README
+- Add screenshots and demos
+- Share your project with the community
+
+## 🔄 Next Steps
+
+After completing this project, consider these extensions:
+
+1. **Advanced Feature Engineering**: Try creating polynomial features, interaction terms, or domain-specific features
+2. **Ensemble Methods**: Combine multiple models for better predictions
+3. **Deep Learning**: Experiment with neural networks for regression
+4. **MLOps**: Learn about model deployment, monitoring, and versioning
+
+
 ## 📈 Success Metrics
 
 Track your progress with these goals:
@@ -243,62 +213,6 @@ Track your progress with these goals:
 - [ ] Optimize model performance through hyperparameter tuning
 - [ ] Deploy the application (using Docker or cloud platforms)
 - [ ] Create comprehensive documentation and showcase the project
-
-## 🛠️ Troubleshooting
-
-### Common Issues and Solutions
-
-#### Environment Problems
-- **Issue**: Package installation fails
-- **Solution**: Check Python version (3.8+ required), update pip, or use conda
-
-#### Kaggle API Issues
-- **Issue**: 403 Forbidden error when downloading data
-- **Solution**: Ensure you've joined the competition and accepted the rules
-
-#### Streamlit App Won't Start
-- **Issue**: Import errors or module not found
-- **Solution**: Verify all dependencies are installed and you're in the correct environment
-
-#### Model Training Errors
-- **Issue**: Notebook cells fail during model training
-- **Solution**: Check data file paths and ensure data cleaning steps completed successfully
-
-### Getting Help
-
-1. **Check Documentation**: Review the guides in the `Docs/` folder
-2. **Read Error Messages**: Python error messages usually indicate the specific problem
-3. **Use Online Resources**: Stack Overflow, documentation, and tutorials
-4. **Ask for Help**: Don't hesitate to reach out to instructors or peers
-
-## 🎉 Project Completion
-
-### What to Submit
-
-1. **Completed Notebook**: `data_cleaning_and_feature_engineering.ipynb` with all cells executed
-2. **Working Streamlit App**: Demonstrated functionality
-3. **Model Files**: Trained models saved in `models/` folder
-4. **Documentation**: Updated README or project report
-5. **GitHub Repository**: Well-organized code with clear commit history
-
-### Showcase Your Work
-
-Follow the [GitHub Showcase Guide](./Docs/Show_Case_Github.md) to:
-- Create an impressive GitHub repository
-- Write a professional README
-- Add screenshots and demos
-- Share your project with the community
-
-## 🔄 Next Steps
-
-After completing this project, consider these extensions:
-
-1. **Advanced Feature Engineering**: Try creating polynomial features, interaction terms, or domain-specific features
-2. **Ensemble Methods**: Combine multiple models for better predictions
-3. **Deep Learning**: Experiment with neural networks for regression
-4. **Time Series Analysis**: If you have temporal data, explore time-based patterns
-5. **MLOps**: Learn about model deployment, monitoring, and versioning
-
 
 
 
