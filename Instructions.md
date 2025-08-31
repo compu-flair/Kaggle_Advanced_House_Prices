@@ -17,7 +17,7 @@ By completing this project, you will learn:
 Before diving into the full project, we recommend starting with our simplified Party-Time jupyter notebook in Google Colab. This **condensed version** introduces the **main concepts** and workflow without the complexity of the complete implementation. 
 Once you're comfortable with the fundamentals, **return here for the comprehensive walkthrough**.
 
-**📓 [Access Party-Time Notebook](https://colab.research.google.com/drive/18g9kSY_tkqn6PIERJm32mDFFHu3KnJDU?usp=sharing)** - *A beginner-friendly introduction to get you started*
+**📓 [Access Party-Time Notebook](https://drive.google.com/file/d/1JDunZdESjo7-qiNZHtjtWKs4oXk7qDG2/view?usp=sharing)** - *A beginner-friendly introduction to get you started*
 
 
 
