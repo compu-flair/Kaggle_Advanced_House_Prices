@@ -170,7 +170,8 @@ In the left panel of the VSCode, click on the explorer tab, navigate to the note
       - Use the green `Code` button and copy the HTML url
    - Click the `Deploy` button
    - Your app will be automatically deployed and accessible via a public URL
-   - Save the public URL to be used when showcasing your work.
+   - Save the public URL to be used when showcasing your work
+      - Here's an example pointing to Ardavan's: [Live Demo](https://kaggleadvancedhousepricesgit-cnmxptag4fayriochntgry.streamlit.app)
 
 2. **Share Your Live Demo:**
    - Copy the deployment URL and add it to your GitHub repository README
@@ -180,75 +181,112 @@ In the left panel of the VSCode, click on the explorer tab, navigate to the note
 3. **Benefits of Live Deployment:**
    - **Professional Portfolio**: Demonstrate real, working applications to potential employers
    - **Easy Sharing**: Anyone can test your model without installing anything
-   - **Automatic Updates**: Your deployment updates automatically when you push changes to GitHub
-
+   - **Automatic Updates**: Your deployment updates automatically when you push changes to your repo in GitHub
 
 
 ## 🐳 Alternative: Docker Deployment (Production-Ready)
 
-If you prefer containerized deployment:
+If you want a production-ready, portable, and reproducible deployment (the preferred method for most professionals):
+  
+**Why Docker?**
+> Most professionals deploy with Docker because it guarantees that your application will run the same way everywhere—on your laptop, a server, or the cloud. Docker containers package your code, dependencies, and environment together, eliminating "it works on my machine" problems and making scaling, testing, and collaboration much easier.
 
 1. **Using Docker Commands**
    ```bash
    docker build -t house-prices-app .
+   docker stop streamlit_app 
    docker run --rm -p 8501:8501 house-prices-app
    ```
 
-2. **Using the Provided Script**
-   ```bash
-   bash start.sh
-   ```
+2. **Use the following url to access the app:**
+    - http://0.0.0.0:8501
+   
+    **To terminate the app:**
+    - Go to the terminal window where the Docker container is running and press `Ctrl+C`.
+    - Alternatively, in a new terminal, you can run:
+       ```bash
+       docker ps
+       docker stop <container_id>
+       ```
+       Replace `<container_id>` with the actual ID of the running container (shown in the output of `docker ps`).
 
-**💡 When to use Docker:** Choose this option if you want to deploy the application in a production environment or if you're having dependency conflicts.
 
 
-## 🎉 Showcase Your Work
+### 🚀 (Optional) Deploying Your Docker Image to a Server
 
-Follow the [GitHub Showcase Guide](./Docs/Show_Case_Github.md) to:
-- Create an impressive GitHub repository
-- Write a professional README
-- Add screenshots and demos
-- Share your project with the community
+Once you have tested your Docker image locally, you can deploy it to any server (cloud or on-premises) where Docker is installed. Here are the next steps:
 
-## 🔄 Next Steps
+1. **Push the Image to a Container Registry:**
+   - Tag your image for your registry (e.g., Docker Hub, AWS ECR, Google GCR):
+     ```bash
+     docker tag house-prices-app <your-username>/house-prices-app:latest
+     docker push <your-username>/house-prices-app:latest
+     ```
+   - Replace `<your-username>` with your Docker Hub or registry username.
 
-After completing this project, consider these extensions:
+2. **Pull and Run on the Server:**
+   - On your server, install Docker if not already installed.
+   - Pull your image:
+     ```bash
+     docker pull <your-username>/house-prices-app:latest
+     ```
+   - Run the container:
+     ```bash
+     docker run --rm -p 8501:8501 <your-username>/house-prices-app:latest
+     ```
+
+3. **Access the App:**
+   - Open a browser and go to `http://<server-ip>:8501` (replace `<server-ip>` with your server's public IP address).
+
+
+## 🔄 Potential Changes
+
+Consider adding these extensions:
 
 1. **Advanced Feature Engineering**: Try creating polynomial features, interaction terms, or domain-specific features
-2. **Ensemble Methods**: Combine multiple models for better predictions
-3. **Deep Learning**: Experiment with neural networks for regression
-4. **MLOps**: Learn about model deployment, monitoring, and versioning
-
-
-## 📈 Success Metrics
-
-Track your progress with these goals:
-
-### Basic Level ✅
-- [ ] Successfully set up development environment
-- [ ] Complete data cleaning notebook
-- [ ] Train a basic Linear Regression model
-- [ ] Run the Streamlit application locally
-- [ ] Make predictions using the web interface
-
-### Intermediate Level 🚀
-- [ ] Understand and explain the feature engineering process
-- [ ] Implement model evaluation and comparison
-- [ ] Modify the Streamlit app (add new features or improve UI)
-- [ ] Experiment with different model parameters
-
-### Advanced Level 🎯
-- [ ] Implement additional machine learning algorithms
-- [ ] Create new features and test their impact
-- [ ] Optimize model performance through hyperparameter tuning
-- [ ] Deploy the application (using Docker or cloud platforms)
-- [ ] Create comprehensive documentation and showcase the project
+2. **Ensemble Methods**: Train and test multiple models and choose the best for better predictions
 
 
 
+### 🏆 Change the Project and Showcase Your Skills on GitHub
+
+Follow these steps to make your own improvements to the project and demonstrate your learning:
+
+1. **Create a New Branch for Your Work**
+   - It's best practice to make changes on a new branch:
+     ```bash
+     git checkout -b my-feature-branch
+     ```
+
+2. **Make Your Changes**
+   - Edit code, add features, improve documentation, or experiment with new models.
+   - Commit your changes regularly:
+     ```bash
+     git add .
+     git commit -m "Describe your change"
+     ```
+
+3. **Push Your Changes to GitHub**
+   - Push your branch to your fork:
+     ```bash
+     git push origin my-feature-branch
+     ```
+
+4. **Showcase Your Work**
+   - **Update the [ReadMe file](README.md)** to describe the new features you added.
+   - Add your deployed Streamlit app url to the ReadMe file.
+   - Screen record the Streamlit app
+      - walk the viewer through overall app
+      - demonstrate your own updates
+   - Turn the recorded video to gif image and add to your ReadMe file.
+   - For a detailed guide on how to write a job-winning ReadMe, read [this file](./Docs/How_to_Prepare_ReadMe.md).[?????]
 
 
+5. **(Optional) Create a Pull Request**
+   - If you think your changes could help others, open a pull request to the original repo to contribute back. For a step-by-step guide, see [How to Make a Pull Request](./Docs/How_to_Make_a_Pull_Request.md) [?????].
+   - **This will improve your GitHub presence, which is publicly trackable by future employers**
 
-## **Good luck with your machine learning journey! 🚀**
+### Present Your Project to Potential Hiring Managers
+   - Make a LinkedIn post about your project, and the value you added.
+   - See a detailed guide on how to write a catchy LinkedIn post [here](./Docs/Present_project_on_LinkedIn.md). [????]
 
-Remember: The goal is not just to complete the project, but to understand the underlying concepts and develop practical skills you can apply to future challenges.
