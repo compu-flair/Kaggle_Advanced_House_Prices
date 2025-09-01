@@ -64,73 +64,7 @@ git config --global user.email "your@email.com"
 3. When pushing, enter your Github username and password (or personal access token if prompted).
 
 #### B. 🗝️ SSH (Advanced, for frequent use and recommended most of the time)
-
-#### SSH Setup by Operating System
-
-**//TODO reference add_ssh_github docs for more information??????????**
-
-##### 🐧 Linux / 🍏 macOS
-
-1. **Generate a new SSH key:**
-    ```bash
-    ssh-keygen -t ed25519 -C "your@email.com"
-    ```
-    - When prompted, press Enter to accept the default file location.
-    - Optionally, set a passphrase for added security.
-
-2. **Start the ssh-agent in the background:**
-    ```bash
-    eval "$(ssh-agent -s)"
-    ```
-
-3. **Add your SSH private key to the ssh-agent:**
-    ```bash
-    ssh-add ~/.ssh/id_ed25519
-    ```
-
-4. **Display your public key (copy this to Github):**
-    ```bash
-    cat ~/.ssh/id_ed25519.pub
-    ```
-
-5. **Add the public key to Github:**  
-   Go to Github → Settings → SSH and GPG keys → New SSH key.
-
----
-
-##### 🪟 Windows
-
-1. **Open Git Bash** (install from [https://git-scm.com](https://git-scm.com) if needed).
-
-2. **Generate a new SSH key:**
-    ```bash
-    ssh-keygen -t ed25519 -C "your@email.com"
-    ```
-    - Press Enter to accept the default file location.
-    - Optionally, set a passphrase.
-
-3. **Start the ssh-agent:**
-    ```bash
-    eval "$(ssh-agent -s)"
-    ```
-
-4. **Add your SSH private key to the ssh-agent:**
-    ```bash
-    ssh-add ~/.ssh/id_ed25519
-    ```
-
-5. **Display your public key (copy this to Github):**
-    ```bash
-    cat ~/.ssh/id_ed25519.pub
-    ```
-
-6. **Add the public key to Github:**  
-   Go to Github → Settings → SSH and GPG keys → New SSH key.
-
-3. Clone with:
-    ```bash
-    git clone git@github.com:username/repo.git
-    ```
+Refere to [Add Github SSH Document](./Add_SSH_to_GitHub.md) for more information.
 
 ### 0.6 ✅ Quick Test
 Check connection and basic commands:
