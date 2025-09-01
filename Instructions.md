@@ -2,7 +2,7 @@
 
 Welcome to the Advanced House Prices Prediction project! This comprehensive guide will walk you through every step of building a complete machine learning solution from data preprocessing to deployment to showcasing your work and building your online presence, **needed to get hired in the industry**.
 
-## 🎯 Learning Objectives [?????]
+## 🎯 Learning Objectives
 
 By completing this project, you will learn:
 
@@ -12,7 +12,7 @@ By completing this project, you will learn:
 - 📊 **Model Evaluation:** Understand and interpret performance metrics
 
 
-## 🚀 Quick Start [?????]
+## 🚀 Quick Start
 
 Before diving into the full project, we recommend starting with our simplified Party-Time jupyter notebook in Google Colab. This **condensed version** introduces the **main concepts** and workflow without the complexity of the complete implementation. 
 Once you're comfortable with the fundamentals, **return here for the comprehensive walkthrough**.
@@ -27,10 +27,6 @@ Once you're comfortable with the fundamentals, **return here for the comprehensi
 Follow this comprehensive step-by-step workflow to complete the project. Each step includes both execution instructions and understanding of what you're accomplishing.
 
 ### Step 1: Environment Setup
-
-Choose one of the following setup methods and follow the detailed instructions in [Setup Environment Guide](./Docs/3.Setup_Environment.md):[?????]
-
-**Quick Setup:**
 
 **Step 1: Fork the Repository**
 1. Sign in to your GitHub account
@@ -71,9 +67,13 @@ python -m ipykernel install --user --name kaggle-house-prices --display-name "ka
 * Once you open the Jupyter Notebook, it should automatically use the "kaggle-house-prices" kernel. If not, please restart VSCode. And if not successful, then on the top right corner of the notebook, you can manually select the kernel by clicking on it and choosing "kaggle-house-prices". You most likely will find it in the Jupyter kernel list.
 
 
+🌟 **Alternative: Python Virtual Environment Setup**  
+Instead of using Conda, you can opt for a Python virtual environment. It's lightweight and more production-friendly, though you might encounter dependency conflicts. For detailed instructions, refer to the [📄 Setup Environment Guide](./Docs/Setup_Environment.md).  
+
+
 ### Step 2: Kaggle Setup
 
-Before you can download the dataset, you need to set up Kaggle credentials. Follow the complete guide in [Setup Kaggle](./Docs/4.Setup_Kaggle.md)[?????] which includes:
+Before you can download the dataset, you need to set up Kaggle credentials. Follow the complete guide in [Setup Kaggle](./Docs/4.Setup_Kaggle.md) which includes:
 
 1. Creating your Kaggle account
 2. Joining the competition and accepting rules
@@ -83,7 +83,7 @@ Before you can download the dataset, you need to set up Kaggle credentials. Foll
 
 ### Step 3: Initial Setup and Data Acquisition
 
-**🎯 Project Status:** Getting Started (Phase 1 of 4)
+**🎯 Project Status:** Getting Started 
 
 1. **Download the Dataset**
    - Join the [Kaggle competition](https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques)
@@ -98,10 +98,10 @@ Before you can download the dataset, you need to set up Kaggle credentials. Foll
 ### Step 4: Data Exploration, Cleaning, and Model Building
 
 1. **Open the Jupyter Notebook:**
-In the left panel of the VSCode, click on the explorer tab, navigate to the notebook file, click and open it. 
+In the left panel of the VSCode, click on the explorer tab, navigate to the notebook file `data_cleaning_and_feature_engineering.ipynb`, click and open it. 
 
 
-2. **Go through the notebook, read, understand, and run cells one by one.**[?????]
+2. **Go through the notebook, read, understand, and run cells one by one.**
 
 
 ### Step 5: Turn Your ML Model Into a Web Application
@@ -284,14 +284,14 @@ Follow these steps to make your own improvements to the project and demonstrate 
       - walk the viewer through overall app
       - demonstrate your own updates
    - Turn the recorded video to gif image and add to your ReadMe file.
-   - For a detailed guide on how to write a job-winning ReadMe, read [this file](./Docs/6.How_to_Prepare_ReadMe.md).[?????]
+   - For a detailed guide on how to write a job-winning ReadMe, read [this file](./Docs/6.How_to_Prepare_ReadMe.md).
 
 
 5. **(Optional) Create a Pull Request**
-   - If you think your changes could help others, open a pull request to the original repo to contribute back. For a step-by-step guide, see [How to Make a Pull Request](./Docs/5.How_to_Make_a_Pull_Request.md) [?????].
+   - If you think your changes could help others, open a pull request to the original repo to contribute back. For a step-by-step guide, see [How to Make a Pull Request](./Docs/5.How_to_Make_a_Pull_Request.md).
    - **This will improve your GitHub presence, which is publicly trackable by future employers**
 
 ### Present Your Project to Potential Hiring Managers
    - Make a LinkedIn post about your project, and the value you added.
-   - See a detailed guide on how to write a catchy LinkedIn post [here](./Docs/7.Present_project_on_LinkedIn.md). [????]
+   - See a detailed guide on how to write a catchy LinkedIn post [here](./Docs/7.Present_project_on_LinkedIn.md).
 
