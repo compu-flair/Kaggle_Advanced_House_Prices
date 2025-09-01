@@ -44,6 +44,12 @@ ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
   - Press Enter for no passphrase (less secure but more convenient)
   - Enter a secure passphrase (more secure)
 
+Next you need to start the ssh-agent in the background and add your SSH private key to the ssh-agent using the following commands. 
+```sh
+eval "$(ssh-agent -s)" # Start the ssh-agent in the background.
+ssh-add ~/.ssh/id_ed25519 # Add your SSH private key to the ssh-agent.
+```
+
 
 ### Step 3: Copy Your Public Key
 
@@ -55,10 +61,11 @@ pbcopy < ~/.ssh/id_ed25519.pub
 ```
 
 **On Linux:**
+Install xclip if you don't have it `sudo apt install xclip`.
+Then execute the following command:
 ```bash
-cat ~/.ssh/id_ed25519.pub
+cat ~/.ssh/id_ed25519.pub | xclip -selection clipboard
 ```
-(Then manually copy the output)
 
 **On Windows (Git Bash):**
 ```bash

@@ -28,7 +28,7 @@ Follow this comprehensive step-by-step workflow to complete the project. Each st
 
 ### Step 1: Environment Setup
 
-Choose one of the following setup methods and follow the detailed instructions in [Setup Environment Guide](./Docs/Setup_Environment.md):[?????]
+Choose one of the following setup methods and follow the detailed instructions in [Setup Environment Guide](./Docs/3.Setup_Environment.md):[?????]
 
 **Quick Setup:**
 
@@ -38,9 +38,9 @@ Choose one of the following setup methods and follow the detailed instructions i
 3. Click the `Fork` button in the top-right corner
 4. Click `Create fork` to make a copy of the project in your GitHub account
 
-**Step 2: Clone Your Fork**
+**Step 2: Clone Your Fork to Your Local Machine**
 1. On your forked repository page, click the green `Code` button
-2. Select the `SSH` tab (if you see "You don't have any public SSH keys," follow the [SSH Setup Guide](./Docs/Add_SSH_to_GitHub.md))
+2. Select the `SSH` tab (if you see "You don't have any public SSH keys," follow the [SSH Setup Guide](./Docs/2.Add_SSH_to_GitHub.md))
 3. Copy the provided SSH URL 
 
 
@@ -73,7 +73,7 @@ python -m ipykernel install --user --name kaggle-house-prices --display-name "ka
 
 ### Step 2: Kaggle Setup
 
-Before you can download the dataset, you need to set up Kaggle credentials. Follow the complete guide in [Setup Kaggle](./Docs/Setup_Kaggle.md)[?????] which includes:
+Before you can download the dataset, you need to set up Kaggle credentials. Follow the complete guide in [Setup Kaggle](./Docs/4.Setup_Kaggle.md)[?????] which includes:
 
 1. Creating your Kaggle account
 2. Joining the competition and accepting rules
@@ -120,7 +120,14 @@ In the left panel of the VSCode, click on the explorer tab, navigate to the note
      - Loads the trained model
      - Creates input forms for house features
      - Makes predictions and displays results
-   
+   - **`views/custom_linear_app.py`**:
+     - Accepts custom data.
+     - Performs dynamic data analysis to each dataset.
+     - Allows to train a linear regression model on the custom dataset.
+   - **`views/custom_xgboost.py`**:
+     - Accepts custom data.
+     - Performs dynamic data analysis to each dataset.
+     - Allows to train a custom XGBoost model on the custom dataset.
    - **`models/schemas.py`**: Data validation schemas (Pydantic)
      - Ensures input data has correct format
      - Validates feature types and ranges
@@ -140,7 +147,7 @@ In the left panel of the VSCode, click on the explorer tab, navigate to the note
    **🎮 Explore These Features:**
    Use the **left panel** to select the following features
    - **House Price Prediction**: 
-      - This page will use the model trained during data_cleaning_and_feature_engineering.ipynb to predict prices
+      - This page will use the model trained during `data_cleaning_and_feature_engineering.ipynb` to predict prices
    - **Custom Linear Regression**:
       - Upload a csv file of any dataset, for example `data/train.csv`
       - Data will be processed and a linear regression will be trained
@@ -171,7 +178,7 @@ In the left panel of the VSCode, click on the explorer tab, navigate to the note
    - Click the `Deploy` button
    - Your app will be automatically deployed and accessible via a public URL
    - Save the public URL to be used when showcasing your work
-      - Here's an example pointing to Ardavan's: [Live Demo](https://kaggleadvancedhousepricesgit-cnmxptag4fayriochntgry.streamlit.app)
+      - Here's an example pointing to Ardavan's: [Live Demo](https://kaggleadvancedhousepricesgit-cnmxptag4fayriochntgry.streamlit.app) (If it's inactive please wake it up).
 
 2. **Share Your Live Demo:**
    - Copy the deployment URL and add it to your GitHub repository README
@@ -194,8 +201,7 @@ If you want a production-ready, portable, and reproducible deployment (the prefe
 1. **Using Docker Commands**
    ```bash
    docker build -t house-prices-app .
-   docker stop streamlit_app 
-   docker run --rm -p 8501:8501 house-prices-app
+   docker run --name house_price_container -d --rm -p 8501:8501 house-prices-app
    ```
 
 2. **Use the following url to access the app:**
@@ -205,10 +211,8 @@ If you want a production-ready, portable, and reproducible deployment (the prefe
     - Go to the terminal window where the Docker container is running and press `Ctrl+C`.
     - Alternatively, in a new terminal, you can run:
        ```bash
-       docker ps
-       docker stop <container_id>
+       docker stop house_price_container
        ```
-       Replace `<container_id>` with the actual ID of the running container (shown in the output of `docker ps`).
 
 
 
@@ -222,7 +226,7 @@ Once you have tested your Docker image locally, you can deploy it to any server 
      docker tag house-prices-app <your-username>/house-prices-app:latest
      docker push <your-username>/house-prices-app:latest
      ```
-   - Replace `<your-username>` with your Docker Hub or registry username.
+   - Replace `<your-username>` with your Docker Hub or registry username or ip/address.
 
 2. **Pull and Run on the Server:**
    - On your server, install Docker if not already installed.
@@ -265,6 +269,7 @@ Follow these steps to make your own improvements to the project and demonstrate 
      git add .
      git commit -m "Describe your change"
      ```
+   Follow commit [conventions](https://www.conventionalcommits.org/en/v1.0.0/) in your change message.
 
 3. **Push Your Changes to GitHub**
    - Push your branch to your fork:
@@ -279,14 +284,14 @@ Follow these steps to make your own improvements to the project and demonstrate 
       - walk the viewer through overall app
       - demonstrate your own updates
    - Turn the recorded video to gif image and add to your ReadMe file.
-   - For a detailed guide on how to write a job-winning ReadMe, read [this file](./Docs/How_to_Prepare_ReadMe.md).[?????]
+   - For a detailed guide on how to write a job-winning ReadMe, read [this file](./Docs/6.How_to_Prepare_ReadMe.md).[?????]
 
 
 5. **(Optional) Create a Pull Request**
-   - If you think your changes could help others, open a pull request to the original repo to contribute back. For a step-by-step guide, see [How to Make a Pull Request](./Docs/How_to_Make_a_Pull_Request.md) [?????].
+   - If you think your changes could help others, open a pull request to the original repo to contribute back. For a step-by-step guide, see [How to Make a Pull Request](./Docs/5.How_to_Make_a_Pull_Request.md) [?????].
    - **This will improve your GitHub presence, which is publicly trackable by future employers**
 
 ### Present Your Project to Potential Hiring Managers
    - Make a LinkedIn post about your project, and the value you added.
-   - See a detailed guide on how to write a catchy LinkedIn post [here](./Docs/Present_project_on_LinkedIn.md). [????]
+   - See a detailed guide on how to write a catchy LinkedIn post [here](./Docs/7.Present_project_on_LinkedIn.md). [????]
 

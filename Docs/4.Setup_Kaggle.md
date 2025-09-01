@@ -7,9 +7,11 @@ Follow this once (10–15 min). After this you can start any competition fast.
 3. (Optional but good) Enable 2FA under Settings > Account.
 
 ### 📜 0.2 Accept Competition Rules
-Before you can download data you MUST open the competition page and click: Join Competition / I Understand & Accept. Do this for every new competition (even “Getting Started” ones) or the API will return 403 errors.
+Before you can download data you MUST open the competition page and click: Join Competition / I Understand & Accept. Do this for every new competition (even “Getting Started” ones) or the API will return 403 errors. **Make sure you understand what you're agreeing to as well.**
 
 ### 🔑 0.3 Generate an API Token
+
+To interact with kaggle using API, we need our kaggle configuration file.
 1. Click your profile avatar (top-right) → Settings.
 2. Scroll to “API” section → Create New Token.
 3. This downloads `kaggle.json` (contains username + key). Keep it private.
@@ -44,12 +46,12 @@ files.upload()  # choose kaggle.json
 ```bash
 pip install kaggle
 mkdir -p ~/.kaggle
-mv ~/Downloads/kaggle.json ~/.kaggle/
+mv ~/Downloads/kaggle.json ~/.kaggle/ #Sometimes you should place it in ~/.config/kaggle/
 chmod 600 ~/.kaggle/kaggle.json
 kaggle --version
 ```
 
-If you use VS Code Python virtual environments, install inside that env.
+**//TODO not sure, I never encountered that//** If you use VS Code Python virtual environments, install inside that env.
 
 ### 📂 0.5 Recommended Project Folder Structure (Create Early)
 ```
@@ -62,7 +64,7 @@ project_root/
       02_model_baseline.ipynb
    models/
    submissions/
-   reports/
+   reports/ **//TODO???//**
    README.md
 ```
 
@@ -85,6 +87,9 @@ OR for datasets (not competitions):
 ```
 
 ### 🔎 0.7 Verify Files in Notebook
+**//TODO why use python not ls and cat//????** we have been using command line for each step so far, so it makes sense to execute `cat data/raw/train.csv | head -n 1`
+But I don't know the equivelent on Windows **//TOOD//???**
+
 ```python
 import os, pandas as pd
 os.listdir('data/raw')
@@ -155,9 +160,10 @@ Kaggle Notebooks are an in-browser Jupyter environment provided by Kaggle for ru
 
 ```python
 # Example: Save predictions for submission
-submission.to_csv('submission.csv', index=False)
+submission.to_csv('submissions/submission.csv', index=False) # saved to our submission folder.
 ```
 Then use the notebook's "Submit" button to upload your file.
+Or use kaggle API for submission, for example `!kaggle competitions submit -c <competition-name> -f submissions/submission.csv -m "<Your message for submission>"`
 
 ---
 

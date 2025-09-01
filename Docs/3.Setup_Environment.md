@@ -30,19 +30,23 @@
    python -m ipykernel install --user --name <environment-name> --display-name "<environment-display-name>"
    ```
 6. In VSCode Press `Ctrl+Shift+P` and select "Python: Select Interpreter", then choose the "<environment-display-name>" interpreter.
-7. Once you open the Jupyter Notebook, it should automatically use the "<environment-display-name>" kernel. If not, please restart VSCode. And if not successful, then on the top right corner of the notebook, you can manually select the kernel by clicking on it and choosing "<environment-display-name>". You most likely will find it in the Jupyter kernel list.
+7. Once you open the Jupyter Notebook, it should automatically use the `<environment-display-name>` kernel. If not, please restart VSCode. And if not successful, then on the top right corner of the notebook, you can manually select the kernel by clicking on it and choosing `<environment-display-name>`. You most likely will find it in the Jupyter kernel list.
 
 This will install all required packages for running the notebook and scripts.
 
 
 ## Python Environment Setup (Alternative) 🐍
 1. Create a virtual environment:
-
+   * **For Linux/Mac:**
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
+   * **For Windows:**
    ```bash
    python -m venv venv
-   source venv/bin/activate  # On Windows use: venv\Scripts\activate
+   .\venv\Scripts\activate
    ```
-
 2. Install the required Python packages:
 
    ```bash
