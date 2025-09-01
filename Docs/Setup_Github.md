@@ -67,6 +67,8 @@ git config --global user.email "your@email.com"
 
 #### SSH Setup by Operating System
 
+**//TODO reference add_ssh_github docs for more information??????????**
+
 ##### 🐧 Linux / 🍏 macOS
 
 1. **Generate a new SSH key:**
