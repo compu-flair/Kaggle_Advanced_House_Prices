@@ -28,7 +28,7 @@ Follow this comprehensive step-by-step workflow to complete the project. Each st
 
 ### Step 1: Environment Setup
 
-Choose one of the following setup methods and follow the detailed instructions in [Setup Environment Guide](./Docs/Setup_Environment.md):[?????]
+Choose one of the following setup methods and follow the detailed instructions in [Setup Environment Guide](./Docs/3.Setup_Environment.md):[?????]
 
 **Quick Setup:**
 
@@ -40,7 +40,7 @@ Choose one of the following setup methods and follow the detailed instructions i
 
 **Step 2: Clone Your Fork to Your Local Machine**
 1. On your forked repository page, click the green `Code` button
-2. Select the `SSH` tab (if you see "You don't have any public SSH keys," follow the [SSH Setup Guide](./Docs/Add_SSH_to_GitHub.md))
+2. Select the `SSH` tab (if you see "You don't have any public SSH keys," follow the [SSH Setup Guide](./Docs/2.Add_SSH_to_GitHub.md))
 3. Copy the provided SSH URL 
 
 
@@ -73,7 +73,7 @@ python -m ipykernel install --user --name kaggle-house-prices --display-name "ka
 
 ### Step 2: Kaggle Setup
 
-Before you can download the dataset, you need to set up Kaggle credentials. Follow the complete guide in [Setup Kaggle](./Docs/Setup_Kaggle.md)[?????] which includes:
+Before you can download the dataset, you need to set up Kaggle credentials. Follow the complete guide in [Setup Kaggle](./Docs/4.Setup_Kaggle.md)[?????] which includes:
 
 1. Creating your Kaggle account
 2. Joining the competition and accepting rules
@@ -284,14 +284,14 @@ Follow these steps to make your own improvements to the project and demonstrate 
       - walk the viewer through overall app
       - demonstrate your own updates
    - Turn the recorded video to gif image and add to your ReadMe file.
-   - For a detailed guide on how to write a job-winning ReadMe, read [this file](./Docs/How_to_Prepare_ReadMe.md).[?????]
+   - For a detailed guide on how to write a job-winning ReadMe, read [this file](./Docs/6.How_to_Prepare_ReadMe.md).[?????]
 
 
 5. **(Optional) Create a Pull Request**
-   - If you think your changes could help others, open a pull request to the original repo to contribute back. For a step-by-step guide, see [How to Make a Pull Request](./Docs/How_to_Make_a_Pull_Request.md) [?????].
+   - If you think your changes could help others, open a pull request to the original repo to contribute back. For a step-by-step guide, see [How to Make a Pull Request](./Docs/5.How_to_Make_a_Pull_Request.md) [?????].
    - **This will improve your GitHub presence, which is publicly trackable by future employers**
 
 ### Present Your Project to Potential Hiring Managers
    - Make a LinkedIn post about your project, and the value you added.
-   - See a detailed guide on how to write a catchy LinkedIn post [here](./Docs/Present_project_on_LinkedIn.md). [????]
+   - See a detailed guide on how to write a catchy LinkedIn post [here](./Docs/7.Present_project_on_LinkedIn.md). [????]
 
