@@ -68,7 +68,7 @@ python -m ipykernel install --user --name kaggle-house-prices --display-name "ka
 
 
 🌟 **Alternative: Python Virtual Environment Setup**  
-Instead of using Conda, you can opt for a Python virtual environment. It's lightweight and more production-friendly, though you might encounter dependency conflicts. For detailed instructions, refer to the [📄 Setup Environment Guide](./Docs/Setup_Environment.md).  
+Instead of using Conda, you can opt for a Python virtual environment. It's lightweight and more production-friendly, though you might encounter dependency conflicts. For detailed instructions, refer to the [📄 Setup Environment Guide](Docs/3.Setup_Environment.md).  
 
 
 ### Step 2: Kaggle Setup
@@ -108,7 +108,7 @@ In the left panel of the VSCode, click on the explorer tab, navigate to the note
 
 **💡 What you're doing:** Now that you have a trained machine learning model, you'll learn how to use it as an interactive web application using Streamlit. This step transforms your data science work into a user-friendly interface where anyone can input house characteristics and get price predictions in real-time using your trained model.
 
-If you're not familiar with streamlit reference the `Docs/8.Streamlit_App.md` for [detailed explaination](Docs/8.Streamlit_App.md).
+If you're not familiar with streamlit reference the [Docs/8.Streamlit_App.md](Docs/8.Streamlit_App.md) for detailed explaination.
 
 1. **Understand the Application Architecture**
    
@@ -197,7 +197,7 @@ If you're not familiar with streamlit reference the `Docs/8.Streamlit_App.md` fo
 
 If you want a production-ready, portable, and reproducible deployment (the preferred method for most professionals):
 
-In case you're not familiar with Docker reference `Docs/4.Introductory_Docker.md` for [detailed explaination](Docs/4.Introductory_Docker.md).
+In case you're not familiar with Docker reference [Docs/4.Introductory_Docker.md](Docs/4.Introductory_Docker.md) for [detailed explaination].
 
 **Why Docker?**
 > Most professionals deploy with Docker because it guarantees that your application will run the same way everywhere—on your laptop, a server, or the cloud. Docker containers package your code, dependencies, and environment together, eliminating "it works on my machine" problems and making scaling, testing, and collaboration much easier.
@@ -298,4 +298,3 @@ Follow these steps to make your own improvements to the project and demonstrate 
 ### Present Your Project to Potential Hiring Managers
    - Make a LinkedIn post about your project, and the value you added.
    - See a detailed guide on how to write a catchy LinkedIn post [here](./Docs/7.Present_project_on_LinkedIn.md).
-

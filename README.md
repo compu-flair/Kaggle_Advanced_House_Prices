@@ -266,6 +266,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 For detailed setup and learning instructions, see:
 - [Student Instructions](Instructions.md) - Complete learning guide
-- [Environment Setup](Docs/Setup_Environment.md) - Development environment
-- [Kaggle Setup](Docs/Setup_Kaggle.md) - API and data access
-- [GitHub Setup](Docs/Setup_Github.md) - Version control setup
+- [Environment Setup](Docs/3.Setup_Environment.md) - Development environment
+- [Kaggle Setup](Docs/4.Setup_Kaggle.md) - API and data access
+- [GitHub Setup](Docs/1.Setup_Github.md) - Version control setup
