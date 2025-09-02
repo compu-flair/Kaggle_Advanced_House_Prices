@@ -193,10 +193,17 @@ To use Kaggle datasets or APIs, you need to set up your Kaggle credentials:
 # Build and run with Docker
 docker build -t house-prices-app .
 docker run --rm -p 8501:8501 house-prices-app
-
-# Or use the provided script
-bash start.sh
 ```
+
+### 🏅 Kaggle leaderboard results
+
+Scored using the competition metric: RMSE on log(SalePrice).
+
+- **submission_outlier.csv**: 0.12442 (best)
+- **submission.csv** (base blend): 0.14783
+- **submission_stacked.csv**: 0.16821
+
+### 💡 Suggestions for Improvements
 
 ## 💻 Usage
 
@@ -214,7 +221,7 @@ Run `data_cleaning_and_feature_engineering.ipynb` to:
 - Train and evaluate machine learning models
 - Generate submission files for Kaggle
 
-## � Configuration
+## ⚙️ Configuration
 
 Key configuration options in `configs/config.py`:
 - Model file paths
@@ -249,7 +256,7 @@ class PricePrediction(BaseModel):
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## � License
+## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
@@ -267,3 +274,5 @@ For detailed setup and learning instructions, see:
 - [Environment Setup](Docs/Setup_Environment.md) - Development environment
 - [Kaggle Setup](Docs/Setup_Kaggle.md) - API and data access
 - [GitHub Setup](Docs/Setup_Github.md) - Version control setup
+
+new
