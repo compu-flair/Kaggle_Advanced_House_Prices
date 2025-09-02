@@ -4,13 +4,12 @@ A complete machine learning solution for predicting house prices using the Ames 
 
 ## 🚀 Features
 
-- **Data Processing Pipeline**: Automated cleaning and feature engineering for optimal model performance
+- **Data Processing Pipeline**: Automated cleaning and feature engineering for optimal model performance. Please read `data/data_description.txt` for detailed feature explanations and comprehensive understanding of the dataset.
 - **Multiple ML Models**: Linear Regression and XGBoost implementations with performance comparison
 - **Interactive Web Application**: Streamlit-based interface for real-time predictions and custom model training
 - **Production Ready**: Docker containerization and comprehensive evaluation metrics
-- **Extensible Architecture**: Modular design supporting easy integration of new models and features
 
-## 🏗️ Architecture
+## 📂 Folder Structure
 
 ```
 ├── 📂 data/                # Datasets and description
@@ -18,8 +17,7 @@ A complete machine learning solution for predicting house prices using the Ames 
 │   ├── 📄 test.csv         # Test data
 │   ├── 📄 new_train.csv    # Processed training data
 │   ├── 📄 new_test.csv     # Processed test data
-│   └── 📄 data_description.txt
-│
+│   ├── 📄 data_description.txt
 ├── 📂 models/              # Trained models and schemas
 │   ├── 📦 linear_regression_model.pkl
 │   └── 📄 schemas.py       # Pydantic data validation
@@ -33,9 +31,14 @@ A complete machine learning solution for predicting house prices using the Ames 
 │   └── 🚀 custom_xgboost.py       # XGBoost implementation
 │
 ├── 📓 data_cleaning_and_feature_engineering.ipynb
-├── 🚀 main.py              # Application entry point
-├── 📦 requirements.txt     # Dependencies
 ├── 🐳 Dockerfile           # Container configuration
+├── environment.yml         # Conda environment
+├── Instructions.md         # Student instructions
+├── LICENSE                 # License information
+├── 🚀 main.py              # Application entry point
+├── Party_Time.ipynb        # Google Colab notebook
+├── 📦 requirements.txt     # Dependencies
+├── server-instructions.md  # Server setup guide
 └── 🖥️ start.sh             # Launch script
 ```
 
@@ -55,20 +58,9 @@ A complete machine learning solution for predicting house prices using the Ames 
    cd Kaggle_Advanced_House_Prices
    ```
 
-2. **Set up environment**
-
 ---
 
-## � Performance Results
-
-| Model | MAE | MSE | RMSE |
-|-------|-----|-----|------|
-| Linear Regression | 19,452.09 | 711,102,117.35 | 26,666.50 |
-| **XGBoost** | **16,483.55** | **578,007,680.00** | **24,041.79** |
-
-XGBoost demonstrates superior performance across all metrics, providing more accurate and robust predictions for house price estimation.
-
-## 🏗️ Architecture
+## ⚙️ Environment Setup
 ### 🅰️ Option 1: Create and activate a virtual environment
 
 #### 🐧 Linux/macOS
@@ -77,14 +69,21 @@ XGBoost demonstrates superior performance across all metrics, providing more acc
 python3.11 -m venv .venv
 source .venv/bin/activate
 ```
+#### 🪟 Windows
 
-Or alternatively:
+```bat
+python -m venv .venv
+.\.venv\Scripts\activate
+```
+
+Or alternatively using Conda for all OS:
+
 ```bash
 conda env create -f environment.yml
 conda activate kaggle-house-prices
 ```
 
-#### Add conda to your kernel.
+#### Add conda to your kernel to use it in Jupyter Notebook.
 
    ```bash
    conda install ipykernel
@@ -93,13 +92,6 @@ conda activate kaggle-house-prices
 1. In VSCode Press `Ctrl+Shift+P` and select "Python: Select Interpreter", then choose the "Loan Approval" interpreter.
 2. Once you open the Jupyter Notebook, it should automatically use the "Loan Approval" kernel. If not, please restart VSCode. And if not successful, then on the top right corner of the notebook, you can manually select the kernel by clicking on it and choosing "Loan Approval". You most likely will find it in the Jupyter kernel list.
    
-
-#### 🪟 Windows
-
-```bat
-python -m venv .venv
-.\.venv\Scripts\activate
-```
 
 ### 2️⃣ Install dependencies
 
@@ -240,6 +232,16 @@ class PricePrediction(BaseModel):
     predicted_price: float
     confidence_interval: Optional[Tuple[float, float]]
 ```
+
+## � Model Performance Results
+
+| Model | MAE | MSE | RMSE |
+|-------|-----|-----|------|
+| Linear Regression | 19,452.09 | 711,102,117.35 | 26,666.50 |
+| **XGBoost** | **16,483.55** | **578,007,680.00** | **24,041.79** |
+
+XGBoost demonstrates superior performance across all metrics, providing more accurate and robust predictions for house price estimation.
+
 
 ## 🤝 Contributing
 
