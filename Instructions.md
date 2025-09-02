@@ -73,7 +73,7 @@ Instead of using Conda, you can opt for a Python virtual environment. It's light
 
 ### Step 2: Kaggle Setup
 
-Before you can download the dataset, you need to set up Kaggle credentials. Follow the complete guide in [Setup Kaggle](./Docs/4.Setup_Kaggle.md) which includes:
+Before you can download the dataset, you need to set up Kaggle credentials. Follow the complete guide in [Setup Kaggle](Docs/4.Setup_Kaggle.md) which includes:
 
 1. Creating your Kaggle account
 2. Joining the competition and accepting rules
@@ -107,6 +107,8 @@ In the left panel of the VSCode, click on the explorer tab, navigate to the note
 ### Step 5: Turn Your ML Model Into a Web Application
 
 **💡 What you're doing:** Now that you have a trained machine learning model, you'll learn how to use it as an interactive web application using Streamlit. This step transforms your data science work into a user-friendly interface where anyone can input house characteristics and get price predictions in real-time using your trained model.
+
+If you're not familiar with streamlit reference the `Docs/8.Streamlit_App.md` for [detailed explaination](Docs/8.Streamlit_App.md).
 
 1. **Understand the Application Architecture**
    
@@ -194,7 +196,9 @@ In the left panel of the VSCode, click on the explorer tab, navigate to the note
 ## 🐳 Alternative: Docker Deployment (Production-Ready)
 
 If you want a production-ready, portable, and reproducible deployment (the preferred method for most professionals):
-  
+
+In case you're not familiar with Docker reference `Docs/4.Introductory_Docker.md` for [detailed explaination](Docs/4.Introductory_Docker.md).
+
 **Why Docker?**
 > Most professionals deploy with Docker because it guarantees that your application will run the same way everywhere—on your laptop, a server, or the cloud. Docker containers package your code, dependencies, and environment together, eliminating "it works on my machine" problems and making scaling, testing, and collaboration much easier.
 
@@ -247,7 +251,7 @@ Once you have tested your Docker image locally, you can deploy it to any server 
 
 Consider adding these extensions:
 
-1. **Advanced Feature Engineering**: Try creating polynomial features, interaction terms, or domain-specific features
+1. **Advanced Feature Engineering**: Try creating polynomial features with regularization , interaction terms, or domain-specific features
 2. **Ensemble Methods**: Train and test multiple models and choose the best for better predictions
 
 
