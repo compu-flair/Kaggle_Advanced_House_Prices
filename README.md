@@ -153,6 +153,14 @@ To use Kaggle datasets or APIs, you need to set up your Kaggle credentials:
 
 For more details, see comments in code and notebook sections.
 
+### 🏅 Kaggle leaderboard results
+
+Scored using the competition metric: RMSE on log(SalePrice).
+
+- **submission_outlier.csv**: 0.12442 (best)
+- **submission.csv** (base blend): 0.14783
+- **submission_stacked.csv**: 0.16821
+
 ### 💡 Suggestions for Improvements
 
 * 📊 Add more visualizations in the EDA section to better understand feature distributions and relationships.
