@@ -199,9 +199,9 @@ docker run --rm -p 8501:8501 house-prices-app
 
 Scored using the competition metric: RMSE on log(SalePrice).
 
-- **submission_outlier.csv**: 0.12442 (best)
-- **submission.csv** (base blend): 0.14783
-- **submission_stacked.csv**: 0.16821
+- **submission_blended.csv**: 0.12234 (best) ✨
+- **submission_outlier.csv**: 0.12442
+- **submission.csv** (base): 0.14783
 
 ### 💡 Suggestions for Improvements
 
