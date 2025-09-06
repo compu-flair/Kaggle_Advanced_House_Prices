@@ -5,5 +5,6 @@ pandas==2.0.3
 numpy==1.26.4
 matplotlib==3.7.5
 seaborn==0.13.2
-xgboost==2.1.1
+xgboost==3.0.4
 kaggle==1.7.4.5
+lightgbm==4.5.0
