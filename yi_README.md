@@ -4,12 +4,13 @@ A complete machine learning solution for predicting house prices using the Ames 
 
 ## 🚀 Features
 
-- **Data Processing Pipeline**: Automated cleaning and feature engineering for optimal model performance. Please read `data/data_description.txt` for detailed feature explanations and comprehensive understanding of the dataset.
+- **Data Processing Pipeline**: Automated cleaning and feature engineering for optimal model performance
 - **Multiple ML Models**: Linear Regression and XGBoost implementations with performance comparison
 - **Interactive Web Application**: Streamlit-based interface for real-time predictions and custom model training
 - **Production Ready**: Docker containerization and comprehensive evaluation metrics
+- **Extensible Architecture**: Modular design supporting easy integration of new models and features
 
-## 📂 Folder Structure
+## 🏗️ Architecture
 
 ```
 ├── 📂 data/                # Datasets and description
@@ -17,7 +18,8 @@ A complete machine learning solution for predicting house prices using the Ames 
 │   ├── 📄 test.csv         # Test data
 │   ├── 📄 new_train.csv    # Processed training data
 │   ├── 📄 new_test.csv     # Processed test data
-│   ├── 📄 data_description.txt
+│   └── 📄 data_description.txt
+│
 ├── 📂 models/              # Trained models and schemas
 │   ├── 📦 linear_regression_model.pkl
 │   └── 📄 schemas.py       # Pydantic data validation
@@ -31,14 +33,9 @@ A complete machine learning solution for predicting house prices using the Ames 
 │   └── 🚀 custom_xgboost.py       # XGBoost implementation
 │
 ├── 📓 data_cleaning_and_feature_engineering.ipynb
-├── 🐳 Dockerfile           # Container configuration
-├── environment.yml         # Conda environment
-├── Instructions.md         # Student instructions
-├── LICENSE                 # License information
 ├── 🚀 main.py              # Application entry point
-├── Party_Time.ipynb        # Google Colab notebook
 ├── 📦 requirements.txt     # Dependencies
-├── server-instructions.md  # Server setup guide
+├── 🐳 Dockerfile           # Container configuration
 └── 🖥️ start.sh             # Launch script
 ```
 
@@ -58,9 +55,20 @@ A complete machine learning solution for predicting house prices using the Ames 
    cd Kaggle_Advanced_House_Prices
    ```
 
+2. **Set up environment**
+
 ---
 
-## ⚙️ Environment Setup
+## � Performance Results
+
+| Model | MAE | MSE | RMSE |
+|-------|-----|-----|------|
+| Linear Regression | 19,452.09 | 711,102,117.35 | 26,666.50 |
+| **XGBoost** | **16,483.55** | **578,007,680.00** | **24,041.79** |
+
+XGBoost demonstrates superior performance across all metrics, providing more accurate and robust predictions for house price estimation.
+
+## 🏗️ Architecture
 ### 🅰️ Option 1: Create and activate a virtual environment
 
 #### 🐧 Linux/macOS
@@ -69,21 +77,14 @@ A complete machine learning solution for predicting house prices using the Ames 
 python3.11 -m venv .venv
 source .venv/bin/activate
 ```
-#### 🪟 Windows
 
-```bat
-python -m venv .venv
-.\.venv\Scripts\activate
-```
-
-Or alternatively using Conda for all OS:
-
+Or alternatively:
 ```bash
 conda env create -f environment.yml
 conda activate kaggle-house-prices
 ```
 
-#### Add conda to your kernel to use it in Jupyter Notebook.
+#### Add conda to your kernel.
 
    ```bash
    conda install ipykernel
@@ -92,6 +93,13 @@ conda activate kaggle-house-prices
 1. In VSCode Press `Ctrl+Shift+P` and select "Python: Select Interpreter", then choose the "Loan Approval" interpreter.
 2. Once you open the Jupyter Notebook, it should automatically use the "Loan Approval" kernel. If not, please restart VSCode. And if not successful, then on the top right corner of the notebook, you can manually select the kernel by clicking on it and choosing "Loan Approval". You most likely will find it in the Jupyter kernel list.
    
+
+#### 🪟 Windows
+
+```bat
+python -m venv .venv
+.\.venv\Scripts\activate
+```
 
 ### 2️⃣ Install dependencies
 
@@ -185,10 +193,17 @@ To use Kaggle datasets or APIs, you need to set up your Kaggle credentials:
 # Build and run with Docker
 docker build -t house-prices-app .
 docker run --rm -p 8501:8501 house-prices-app
-
-# Or use the provided script
-bash start.sh
 ```
+
+### 🏅 Kaggle leaderboard results
+
+Scored using the competition metric: RMSE on log(SalePrice).
+
+- **submission_blended.csv**: 0.12234 (best) ✨
+- **submission_outlier.csv**: 0.12442
+- **submission.csv** (base): 0.14783
+
+### 💡 Suggestions for Improvements
 
 ## 💻 Usage
 
@@ -206,7 +221,7 @@ Run `data_cleaning_and_feature_engineering.ipynb` to:
 - Train and evaluate machine learning models
 - Generate submission files for Kaggle
 
-## � Configuration
+## ⚙️ Configuration
 
 Key configuration options in `configs/config.py`:
 - Model file paths
@@ -233,16 +248,6 @@ class PricePrediction(BaseModel):
     confidence_interval: Optional[Tuple[float, float]]
 ```
 
-## � Model Performance Results
-
-| Model | MAE | MSE | RMSE |
-|-------|-----|-----|------|
-| Linear Regression | 19,452.09 | 711,102,117.35 | 26,666.50 |
-| **XGBoost** | **16,483.55** | **578,007,680.00** | **24,041.79** |
-
-XGBoost demonstrates superior performance across all metrics, providing more accurate and robust predictions for house price estimation.
-
-
 ## 🤝 Contributing
 
 1. Fork the repository
@@ -251,7 +256,7 @@ XGBoost demonstrates superior performance across all metrics, providing more acc
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## � License
+## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
@@ -266,6 +271,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 For detailed setup and learning instructions, see:
 - [Student Instructions](Instructions.md) - Complete learning guide
-- [Environment Setup](Docs/3.Setup_Environment.md) - Development environment
-- [Kaggle Setup](Docs/4.Setup_Kaggle.md) - API and data access
-- [GitHub Setup](Docs/1.Setup_Github.md) - Version control setup
+- [Environment Setup](Docs/Setup_Environment.md) - Development environment
+- [Kaggle Setup](Docs/Setup_Kaggle.md) - API and data access
+- [GitHub Setup](Docs/Setup_Github.md) - Version control setup
+
+new
