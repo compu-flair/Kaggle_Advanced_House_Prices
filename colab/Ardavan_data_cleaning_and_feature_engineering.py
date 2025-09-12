@@ -8,6 +8,10 @@
 # In[1]:
 import os
 
+
+# Set the working directory to the parent folder of this script
+os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 os.system('kaggle competitions download -c house-prices-advanced-regression-techniques -p data')
 
 
@@ -1351,7 +1355,49 @@ plt.title('ElasticNet: Predicted vs True SalePrice')
 plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], 'r--')
 plt.show()
 
+# In[]:
+# Get only the rows where the prediction was wrong (i.e., not equal or with significant error)
+wrong_mask = np.abs(y_test - y_pred) > 1e-2  # Use a small threshold for floating point
+wrong_preds = pd.DataFrame({
+'True': y_test[wrong_mask],
+'Predicted': y_pred[wrong_mask]
+}).reset_index(drop=True)
+print("Number of wrong predictions:", len(wrong_preds))
+display(wrong_preds)
 
+# In[]:
+plt.figure(figsize=(6, 6))
+# Plot wrong predictions in orange and correct predictions in blue
+plt.scatter(wrong_preds['True'], wrong_preds['Predicted'], alpha=0.6, color='orange', label='Wrong Predictions')
+
+
+
+plt.xlabel('True SalePrice (y_test)')
+plt.ylabel('Predicted SalePrice (y_pred)')
+plt.title('Predicted vs True SalePrice')
+# plt.plot([min(y_test), max(y_test)], [min(y_test), max(y_test)], 'r--')
+plt.grid(True)
+plt.legend()
+plt.show()
+
+# In[]:
+
+# Plot the relationship between each training feature and the wrong predicted values
+for col in selected_features:
+    try:
+        plt.figure(figsize=(6, 4))
+        # Get the corresponding values for wrong predictions
+        feature_vals = X_test[:, selected_features.index(col)][wrong_mask]
+        plt.scatter(feature_vals, wrong_preds['True'], alpha=0.5, label='True', color='blue')
+        plt.scatter(feature_vals, wrong_preds['Predicted'], alpha=0.5, label='Predicted', color='red')
+        plt.xlabel(col)
+        plt.ylabel('SalePrice')
+        plt.title(f'Relation between {col} and Wrong Predictions')
+        plt.legend()
+        plt.tight_layout()
+        plt.show()
+    except Exception as e:
+        print(f"Could not plot for feature {col}: {e}")
 # In[78]:
 
 
@@ -1370,3 +1416,6 @@ submission.to_csv(os.path.join('data', 'submission_Ardavan.csv'), index=False)
 
 #!kaggle competitions submit -c house-prices-advanced-regression-techniques -f data/submission_Ardavan.csv -m "Elastic net + pca"
 
+
+# %%
+print("Done")
