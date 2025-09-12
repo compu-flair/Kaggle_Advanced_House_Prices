@@ -1356,48 +1356,30 @@ plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], 'r--')
 plt.show()
 
 # In[]:
-# Get only the rows where the prediction was wrong (i.e., not equal or with significant error)
-wrong_mask = np.abs(y_test - y_pred) > 1e-2  # Use a small threshold for floating point
-wrong_preds = pd.DataFrame({
-'True': y_test[wrong_mask],
-'Predicted': y_pred[wrong_mask]
-}).reset_index(drop=True)
-print("Number of wrong predictions:", len(wrong_preds))
-display(wrong_preds)
-
-# In[]:
-plt.figure(figsize=(6, 6))
-# Plot wrong predictions in orange and correct predictions in blue
-plt.scatter(wrong_preds['True'], wrong_preds['Predicted'], alpha=0.6, color='orange', label='Wrong Predictions')
-
-
-
-plt.xlabel('True SalePrice (y_test)')
-plt.ylabel('Predicted SalePrice (y_pred)')
-plt.title('Predicted vs True SalePrice')
-# plt.plot([min(y_test), max(y_test)], [min(y_test), max(y_test)], 'r--')
-plt.grid(True)
-plt.legend()
+threshold = 0.5
+e = abs(y_pred - y_test)
+mask = e > threshold
+plt.figure(figsize=(6,6))
+plt.scatter(e[mask], y_test[mask])
 plt.show()
 
 # In[]:
+coefs = np.ravel(best_model.coef_)                 # flatten in case of multi-target
+temp = coefs * np.max(X_train,axis=0)
+# print("Temp: ",temp)
 
-# Plot the relationship between each training feature and the wrong predicted values
-for col in selected_features:
-    try:
-        plt.figure(figsize=(6, 4))
-        # Get the corresponding values for wrong predictions
-        feature_vals = X_test[:, selected_features.index(col)][wrong_mask]
-        plt.scatter(feature_vals, wrong_preds['True'], alpha=0.5, label='True', color='blue')
-        plt.scatter(feature_vals, wrong_preds['Predicted'], alpha=0.5, label='Predicted', color='red')
-        plt.xlabel(col)
-        plt.ylabel('SalePrice')
-        plt.title(f'Relation between {col} and Wrong Predictions')
-        plt.legend()
-        plt.tight_layout()
-        plt.show()
-    except Exception as e:
-        print(f"Could not plot for feature {col}: {e}")
+thr = 1 * abs(temp)
+# print("T",thr)
+# abs_coefs = np.abs(coefs)
+# thr = 0.40 * abs_coefs.max()
+
+arg_important = np.where(temp >= thr)[0]
+print(arg_important)
+
+# In[]:
+
+print(kaggle_train_data.columns[arg_important])
+
 # In[78]:
 
 
