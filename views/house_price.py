@@ -2,7 +2,7 @@ import streamlit as st
 from pydantic import conint, confloat
 import pickle
 import pandas as pd
-from models.schemas import GaragePredictRequest, FEATURES
+from models.schemas import PredictionRequest, FEATURES
 from configs.config import HOUSE_PRICE_TAB as TABE_NAME
 
 def run_house_price_app():
@@ -15,7 +15,7 @@ def run_house_price_app():
 
     # Dynamically set attributes for the Pydantic request schema
     for fname, ftype in FEATURES:
-        setattr(GaragePredictRequest, fname, ftype)
+        setattr(PredictionRequest, fname, ftype)
 
     # Streamlit UI: Title and input section
     st.title("House Price Prediction")
@@ -42,7 +42,7 @@ def run_house_price_app():
     if st.button("Predict"):
         # Rename key for model compatibility
         inputs["stFlrSF"] = inputs.pop("1stFlrSF")  
-        request = GaragePredictRequest(**inputs)
+        request = PredictionRequest(**inputs)
 
         # Prepare features for model input
         feature_dict = request.model_dump()

@@ -2038,3 +2038,248 @@ submission.to_csv(os.path.join('data', 'submission_Ardavan.csv'), index=False)
 
 
 ## Step 2: Streamlit App
+
+To create a Streamlit app for our model and other functionalities, we need to first create 2 folders, one called `configs` and the other called `views`. configs folder will contain configuration files for our app, and views folder will contain different pages of our app.
+
+
+1. Let's start by creating a configuration file for our app. Create a file named `config.py` inside the `configs` folder. Create constants for out tabs names of values `Custom Linear Regression`, `House Price Prediction` and `Custom XGBoost`.
+
+<details>
+    <summary>Reveal</summary>
+
+```python
+# Tab name for the custom linear regression application
+CUSTOM_APP_TAB = "Custom Linear Regression"
+
+# Tab name for the house price prediction application
+HOUSE_PRICE_TAB = "House Price Prediction"
+
+
+XGBOOST_APP_TAB = "Custom XGBoost"
+```
+</details>
+
+2. That's it, we don't need more configurations, let's create our schemas file to make sure our model inputs are valid. Create a file named `schemas.py` inside the `models` folder. Create a list of used features in our model that each element is a tuple of feature name and it's valide range.
+
+
+<details>
+    <summary>Reveal</summary>
+
+```python
+from pydantic import BaseModel, conint, confloat
+
+# List of features used for prediction, with their types and constraints.
+# Each tuple contains the feature name and its Pydantic type constraint.
+FEATURES = [
+    ("AllSF", confloat(ge=0)),                # Total square footage, must be >= 0
+    ("OverallQual", conint(ge=1, le=10)),     # Overall material and finish quality, 1-10
+    ("NeighborPrice", confloat(ge=0)),        # Average price in neighborhood, must be >= 0
+    ("GrLivArea", conint(ge=0)),              # Above ground living area, must be >= 0
+    ("ExterQual_", conint(ge=0)),             # Exterior quality (encoded), must be >= 0
+    ("NeighborBin", conint(ge=0)),            # Neighborhood bin (encoded), must be >= 0
+    ("KitchenQual_", conint(ge=0)),           # Kitchen quality (encoded), must be >= 0
+    ("SimplOverallQual", conint(ge=0)),       # Simplified overall quality (encoded), must be >= 0
+    ("TotalBsmtSF", confloat(ge=0)),          # Total basement area, must be >= 0
+    ("GarageCars", confloat(ge=0)),           # Number of garage cars, must be >= 0
+    ("TotalBath", confloat(ge=0)),            # Total number of bathrooms, must be >= 0
+    ("GarageScore", confloat(ge=0)),          # Garage score (custom feature), must be >= 0
+    ("GarageArea", confloat(ge=0)),           # Garage area, must be >= 0
+    ("1stFlrSF", conint(ge=0)),               # First floor square footage, must be >= 0
+    ("BsmtQual_", conint(ge=0)),              # Basement quality (encoded), must be >= 0
+    ("OverallGrade", conint(ge=0)),           # Overall grade (custom feature), must be >= 0
+    ("FullBath", conint(ge=0)),               # Number of full bathrooms, must be >= 0
+    ("TotRmsAbvGrd", conint(ge=0)),           # Total rooms above ground, must be >= 0
+    ("Now_YearBuilt", conint(ge=0)),          # Years since built (custom feature), must be >= 0
+    ("YearBuilt", conint(ge=1800, le=2024)),  # Year built, between 1800 and 2024
+]
+```
+
+
+
+3. Lovely, now it's time to create the Pydantic model for our features. Create a class named `PredictionRequest` that inherits from `BaseModel` and it's attributes are the features we defined in the previous step.
+
+<details>
+    <summary>Reveal</summary>
+
+```python
+
+# Pydantic model for validating prediction requests.
+# Each field corresponds to a feature, with type and constraints.
+class PredictionRequest(BaseModel):
+    AllSF: confloat(ge=0)                     # Total square footage
+    OverallQual: conint(ge=1, le=10)          # Overall quality (1-10)
+    NeighborPrice: confloat(ge=0)             # Neighborhood average price
+    GrLivArea: conint(ge=0)                   # Above ground living area
+    ExterQual_: conint(ge=0)                  # Exterior quality (encoded)
+    NeighborBin: conint(ge=0)                 # Neighborhood bin (encoded)
+    KitchenQual_: conint(ge=0)                # Kitchen quality (encoded)
+    SimplOverallQual: conint(ge=0)            # Simplified overall quality (encoded)
+    TotalBsmtSF: confloat(ge=0)               # Total basement area
+    GarageCars: confloat(ge=0)                # Number of garage cars
+    TotalBath: confloat(ge=0)                 # Total number of bathrooms
+    GarageScore: confloat(ge=0)               # Garage score (custom feature)
+    GarageArea: confloat(ge=0)                # Garage area
+    stFlrSF: conint(ge=0)                     # First floor square footage (typo: should be '1stFlrSF')
+    BsmtQual_: conint(ge=0)                   # Basement quality (encoded)
+    OverallGrade: conint(ge=0)                # Overall grade (custom feature)
+    FullBath: conint(ge=0)                    # Number of full bathrooms
+    TotRmsAbvGrd: conint(ge=0)                # Total rooms above ground
+    Now_YearBuilt: conint(ge=0)               # Years since built (custom feature)
+    YearBuilt: conint(ge=1800, le=2024)       # Year built (between 1800 and 2024)
+```
+</details>
+
+
+
+4. Great, now time create our pages, let's go for each view or page of our app. Start by creating a file named `house_price.py` inside the `views` folder. Make all the necessary imports and load the trained model, process data and schemas.
+
+<details>
+    <summary>Reveal</summary>
+
+```python
+import streamlit as st
+from pydantic import conint, confloat
+import pickle
+import pandas as pd
+from models.schemas import GaragePredictRequest, FEATURES
+from configs.config import HOUSE_PRICE_TAB as TABE_NAME
+```
+</details>
+
+5. Now we need to create a function that will render our page, name it `run_house_price_app`, load the linear regression model we trained before, dynamically set attributes for the pydantic request using our `FEATURES` schemas and set the title of the page to `House Price Prediction` and a subheader of `Input Features`. 
+
+
+Note: We will be building this function step by step.
+
+
+<details>
+    <summary>Reveal</summary>
+
+```python
+
+def run_house_price_app():
+    # Load the trained model from file
+    try:
+        model = pickle.load(open('models/linear_regression_model.pkl', 'rb'))
+    except (FileNotFoundError, pickle.UnpicklingError) as e:
+        st.error("Trained model file not found. Please train the model first by running the `data_cleaning_and_feature_engineering.ipynb` notebook.")
+        return
+
+    # Dynamically set attributes for the Pydantic request schema
+    for fname, ftype in FEATURES:
+        setattr(PredictionRequest, fname, ftype)
+
+    # Streamlit UI: Title and input section
+    st.title("House Price Prediction")
+    st.subheader("Input Features")
+```
+
+</details>
+
+
+6. Now we need to create a numeric inputs to take user inputs for each feature in our `FEATURES` list. Use `st.number_input` to take input for each feature and store the values in a dictionary named `input_data`.
+
+<details>
+    <summary>Reveal</summary>
+
+```python
+
+   inputs = {}
+    # Generate input fields based on feature types
+    for fname, ftype in FEATURES:
+        if ftype == confloat(ge=0):
+            inputs[fname] = st.number_input(fname, min_value=0.0, value=0.0)
+        elif ftype == conint(ge=1, le=10):
+            inputs[fname] = st.number_input(fname, min_value=1, max_value=10, value=5)
+        elif ftype == conint(ge=1800, le=2024):
+            inputs[fname] = st.number_input(fname, min_value=1800, max_value=2024, value=2000)
+        elif ftype == conint(ge=0):
+            inputs[fname] = st.number_input(fname, min_value=0, value=0)
+        else:
+            inputs[fname] = st.number_input(fname, value=0)
+```
+
+</details>
+
+7. If you've seen the final page, you will notice that each prediction is stored and plotted, so before we start our prediction, we need to create a state in streamlit to store our predictions. Name it `predictions` and initialize it to an empty list if it doesn't exist.
+
+<details>
+    <summary>Reveal</summary>
+
+```python
+    # Initialize session state to store predictions
+    if 'predictions' not in st.session_state:
+        st.session_state['predictions'] = []
+```
+</details>
+
+
+8. Now we can start our prediction logic, create a button named `Predict`, when the button is clicked, rename the key `1stFlrSF` to `stFlrSF` for model compatibility, create a `PredictionRequest` instance using the user inputs, prepare the features for model input by converting it to a pandas dataframe and reordering the columns to match the model's expected input. Make the prediction using the loaded model, append the prediction to the session state and display the predicted value using `st.success`.
+
+<details>
+    <summary>Reveal</summary>
+
+```python
+   # Prediction logic triggered by button
+    if st.button("Predict"):
+        # Rename key for model compatibility
+        inputs["stFlrSF"] = inputs.pop("1stFlrSF")  
+        request = PredictionRequest(**inputs)
+
+        # Prepare features for model input
+        feature_dict = request.model_dump()
+        feature_dict["1stFlrSF"] = feature_dict.pop("stFlrSF")
+        features = pd.DataFrame([feature_dict])
+        cols = features.columns.tolist()
+        cols.remove("1stFlrSF")
+        # Insert "1stFlrSF" at specific position for model
+        insert_idx = -6 if len(cols) >= 5 else len(cols)
+        cols.insert(insert_idx, "1stFlrSF")
+        features = features[cols]
+        
+        # Make prediction and update session state
+        prediction = model.predict(features)
+        st.session_state.predictions.append(float(prediction[0]))
+        st.success(f"Predicted Value: {float(prediction[0]):.2f}")
+```
+</details>
+
+
+9. Finally, we need to plot the predictions, show the sidebar and show the line chart of the predictions.
+
+Note: Only show the side bar if the current selected tab is `House Price Prediction`.
+
+
+<details>
+    <summary>Reveal</summary>
+
+```python
+    # Show sidebar only if this tab is selected
+    if st.session_state.get("selected_tab") == TABE_NAME:
+        with st.sidebar:
+            # Set sidebar width using custom CSS
+            st.markdown(
+                """
+                <style>
+                [data-testid="stSidebar"] {
+                    min-width: 400px;
+                    max-width: 400px;
+                    width: 400px;
+                }
+                </style>
+                """,
+                unsafe_allow_html=True,
+            )
+            # Display line chart of predictions
+            st.line_chart(st.session_state.predictions or [0,1,2,3,4])
+```
+</details>
+
+
+
+
+
+
+
+
+
