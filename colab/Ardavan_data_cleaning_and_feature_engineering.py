@@ -8,6 +8,10 @@
 # In[1]:
 import os
 
+
+# Set the working directory to the parent folder of this script
+os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 os.system('kaggle competitions download -c house-prices-advanced-regression-techniques -p data')
 
 
@@ -1351,6 +1355,30 @@ plt.title('ElasticNet: Predicted vs True SalePrice')
 plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], 'r--')
 plt.show()
 
+# In[]:
+threshold = 0.5
+e = abs(y_pred - y_test)
+mask = e > threshold
+plt.figure(figsize=(6,6))
+plt.scatter(e[mask], y_test[mask])
+plt.show()
+
+# In[]:
+coefs = np.ravel(best_model.coef_)                 # flatten in case of multi-target
+temp = coefs * np.max(X_train,axis=0)
+# print("Temp: ",temp)
+
+thr = 1 * abs(temp)
+# print("T",thr)
+# abs_coefs = np.abs(coefs)
+# thr = 0.40 * abs_coefs.max()
+
+arg_important = np.where(temp >= thr)[0]
+print(arg_important)
+
+# In[]:
+
+print(kaggle_train_data.columns[arg_important])
 
 # In[78]:
 
@@ -1370,3 +1398,6 @@ submission.to_csv(os.path.join('data', 'submission_Ardavan.csv'), index=False)
 
 #!kaggle competitions submit -c house-prices-advanced-regression-techniques -f data/submission_Ardavan.csv -m "Elastic net + pca"
 
+
+# %%
+print("Done")
