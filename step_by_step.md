@@ -2277,9 +2277,453 @@ Note: Only show the side bar if the current selected tab is `House Price Predict
 
 
 
+10. Now we need to create another view for our custom linear regression app, the app shall take a csv file, adapt to any type of data, perform basic EDA, data cleaning, allow users to select features and target value, train a linear regression model and show the results. Create a file named `custom_linear_regression.py` inside the `views` folder. Make all the necessary imports, create a function called `custom_model_linear_regression_app` and set the title of the page to `Custom Linear Regression Training`.
 
 
+<details>
+    <summary>Reveal</summary>
+
+```python
+import streamlit as st
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+from sklearn.metrics import mean_absolute_error, mean_squared_error
+import matplotlib.pyplot as plt
+import seaborn as sns
+from configs.config import CUSTOM_APP_TAB
+
+def custom_model_linear_regression_app():
+    # Set the title and tab for the Streamlit app
+    st.title("Custom Model Linear Regression Training")
+```
+</details>
+
+11. Now we need to tell our streamlit app that our select_tab is the custom tab, create `st.file_uploader` to take csv file as input and read the csv file using pandas then show a preview of the dataset.
+
+<details>
+    <summary>Reveal</summary>
+
+```python
+
+     st.session_state["selected_tab"] = CUSTOM_APP_TAB
+
+    # File uploader for CSV data
+    uploaded_file = st.file_uploader("Upload CSV file", type=["csv"])
+
+    if uploaded_file:
+        # Read uploaded CSV into DataFrame
+        df = pd.read_csv(uploaded_file)
+        st.write("Data Preview:", df.head())
+```
+
+</details>
+
+12. Now we need to perform basic EDA on the dataset, show the number of missing values, median values, mean values. Make it under subheader `Data Summary`
+
+<details>
+    <summary>Reveal</summary>
+
+```python
+        # Display summary statistics and missing values
+        st.subheader("Data Summary")
+        st.write("Number of missing values:")
+        st.write(df.isnull().sum())
+        st.write("Median values:")
+        st.write(df.select_dtypes(include=['number']).median())
+        st.write("Mean values:")
+        st.write(df.select_dtypes(include=['number']).mean())
+```
+</details>
 
 
+13. Now show the correlation heatmap of the dataset, make it under subheader `Correlation Matrix`.
+
+<details>
+    <summary>Reveal</summary>
+
+```python
+        # Calculate and display correlation matrix
+        st.subheader("Correlation Matrix")
+        corr_matrix = df.corr(numeric_only=True)
+        st.write(corr_matrix)
+        fig = plt.figure(figsize=(20, 16))
+        sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', fmt=".2f", square=True, cbar_kws={"shrink": .8})
+        st.pyplot(fig)
+```
+</details>
 
 
+14. Now allow the user to select features and target value using `st.multiselect` and `st.selectbox`.
+
+<details>
+    <summary>Reveal</summary>
+
+```python
+        
+        # Select target and feature columns
+        target = st.selectbox("Select label (Y) column", df.columns)
+        features = st.multiselect(
+            "Select feature columns (X)", [col for col in df.columns if col != target]
+        )
+```
+</details>
+
+15. Now since the user selected the features and target value, we need to create training button and prediction buttons. Start by checking if the features and target value are selected, and if there's no training model in the streamlit session state, then create empety states of `trained_model`, `numeric_features`, `categorical_features`.
+
+
+<details>
+    <summary>Reveal</summary>
+
+```python
+        if features and target:
+            # Initialize session state for model and feature info
+            if "trained_model" not in st.session_state:
+                st.session_state["trained_model"] = None
+                st.session_state["numeric_features"] = []
+                st.session_state["categorical_features"] = []
+```
+</details>
+
+
+16. Everything sounds good so far, now create the `Start Training` button, create training pipeline show the suer his model model scores. Make sure to store the trained model and feature info in the streamlit session state.
+
+
+<details>
+    <summary>Reveal</summary>
+
+```python
+
+            # Button to start training
+            if st.button("Start Training", key="start_training_btn"):
+                # Drop rows with missing values in selected columns
+                clean_df = df[features + [target]].dropna()
+                X = clean_df[features]
+                y = clean_df[target]
+
+                # Identify numeric and categorical features
+                numeric_features = X.select_dtypes(include=['int64', 'float64']).columns.tolist()
+                categorical_features = X.select_dtypes(include=['object', 'category']).columns.tolist()
+
+                # Preprocessing pipeline for numeric and categorical features
+                preprocessor = ColumnTransformer(
+                    transformers=[
+                        ('num', StandardScaler(), numeric_features),
+                        ('cat', OneHotEncoder(handle_unknown='ignore'), categorical_features)
+                    ]
+                )
+
+                # Full pipeline: preprocessing + regression model
+                model = Pipeline(steps=[
+                    ('preprocessor', preprocessor),
+                    ('regressor', LinearRegression())
+                ])
+
+                # Split data into train and test sets
+                X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+                # Train the model
+                model.fit(X_train, y_train)
+                score = model.score(X_test, y_test)
+
+                # Make predictions on test set
+                y_pred = model.predict(X_test)
+
+                # Calculate evaluation metrics
+                mae = mean_absolute_error(y_test, y_pred)
+                mse = mean_squared_error(y_test, y_pred)
+
+                # Display model performance
+                st.write(f"Model R^2 score on test set: {score:.4f}")
+                st.write(f"Mean Absolute Error (MAE): {mae:.4f}")
+                st.write(f"Mean Squared Error (MSE): {mse:.4f}")
+
+                # Save model and feature info in session state
+                st.session_state["trained_model"] = model
+                st.session_state["numeric_features"] = numeric_features
+                st.session_state["categorical_features"] = categorical_features
+                st.session_state["selected_features"] = features
+                st.session_state["df"] = df
+```
+</details>
+
+
+17. Now since we have a trained model, we need to enable prediction on the model to the user. Please show it only if there's a trained model in the streamlit session state.
+
+
+<details>
+    <summary>Reveal</summary>
+
+```python
+
+            # Prediction section: only show if model is trained
+            if st.session_state.get("trained_model") is not None:
+                st.subheader("Make a Prediction")
+                input_data = {}
+                df_for_input = st.session_state["df"]
+                numeric_features = st.session_state["numeric_features"]
+                categorical_features = st.session_state["categorical_features"]
+                selected_features = st.session_state["selected_features"]
+
+                # Input widgets for each feature
+                for feature in selected_features:
+                    if feature in numeric_features:
+                        val = st.number_input(f"Input value for {feature}", value=float(df_for_input[feature].mean()))
+                    else:
+                        val = st.selectbox(f"Input value for {feature}", options=df_for_input[feature].unique())
+                    input_data[feature] = val
+
+                # Initialize prediction result in session state
+                if "prediction_result" not in st.session_state:
+                    st.session_state["prediction_result"] = None
+
+                # Button to make prediction
+                if st.button("Predict", key="predict_btn"):
+                    input_df = pd.DataFrame([input_data])
+                    pred = st.session_state["trained_model"].predict(input_df)[0]
+                    st.session_state["prediction_result"] = f"Predicted value: {pred:.4f}"
+
+                # Display prediction result
+                if st.session_state.get("prediction_result"):
+                    st.write(st.session_state["prediction_result"])
+```
+</details>
+
+
+18. Everything looks great, now we need to create the same exact steps for XGBoost model. Create a file named `custom_xgboost.py` inside the `views` folder. Make all the necessary imports, create a function called `custom_model_xgboost_app` and set the title of the page to `Custom XGBoost Training`.
+
+<details>
+    <summary>Reveal</summary>
+
+```python
+
+import streamlit as st
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from xgboost import XGBRegressor
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+from sklearn.metrics import mean_absolute_error, mean_squared_error
+import matplotlib.pyplot as plt
+import seaborn as sns
+from configs.config import CUSTOM_APP_TAB
+
+def custom_model_xgboost_app():
+    # Set the title and tab for the Streamlit app
+    st.title("Custom Model XGBoost Training")
+    st.session_state["selected_tab"] = CUSTOM_APP_TAB
+```
+</details>
+
+19. Sounds familiar, right? Can you finish it on your own by following the same steps we did in the previous view? Give it a try, if not, then reveal the solution.
+
+
+<details>
+    <summary>Reveal</summary>
+
+```python
+import streamlit as st
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from xgboost import XGBRegressor
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+from sklearn.metrics import mean_absolute_error, mean_squared_error
+import matplotlib.pyplot as plt
+import seaborn as sns
+from configs.config import CUSTOM_APP_TAB
+
+def custom_model_xgboost_app():
+    # Set the title and tab for the Streamlit app
+    st.title("Custom Model XGBoost Training")
+    st.session_state["selected_tab"] = CUSTOM_APP_TAB
+
+    # File uploader for CSV data
+    uploaded_file = st.file_uploader("Upload CSV file", type=["csv"])
+
+    if uploaded_file:
+        # Read uploaded CSV into DataFrame
+        df = pd.read_csv(uploaded_file)
+        st.write("Data Preview:", df.head())
+
+        # Show summary statistics and missing values
+        st.subheader("Data Summary")
+        st.write("Number of missing values:")
+        st.write(df.isnull().sum())
+        st.write("Median values:")
+        st.write(df.select_dtypes(include=['number']).median())
+        st.write("Mean values:")
+        st.write(df.select_dtypes(include=['number']).mean())
+
+        # Show correlation matrix and heatmap
+        st.subheader("Correlation Matrix")
+        corr_matrix = df.corr(numeric_only=True)
+        st.write(corr_matrix)
+        fig = plt.figure(figsize=(20, 16))
+        sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', fmt=".2f", square=True, cbar_kws={"shrink": .8})
+        st.pyplot(fig)
+
+        # Select target and feature columns
+        target = st.selectbox("Select label (Y) column", df.columns)
+        features = st.multiselect(
+            "Select feature columns (X)", [col for col in df.columns if col != target]
+        )
+
+        if features and target:
+            # Initialize session state for model and feature info
+            if "trained_model" not in st.session_state:
+                st.session_state["trained_model"] = None
+                st.session_state["numeric_features"] = []
+                st.session_state["categorical_features"] = []
+
+            # Button to start training
+            if st.button("Start Training", key="start_training_btn"):
+                # Drop rows with missing values in selected columns
+                clean_df = df[features + [target]].dropna()
+                X = clean_df[features]
+                y = clean_df[target]
+
+                # Identify numeric and categorical features
+                numeric_features = X.select_dtypes(include=['int64', 'float64']).columns.tolist()
+                categorical_features = X.select_dtypes(include=['object', 'category']).columns.tolist()
+
+                # Build preprocessing pipeline for numeric and categorical features
+                preprocessor = ColumnTransformer(
+                    transformers=[
+                        ('num', StandardScaler(), numeric_features),
+                        ('cat', OneHotEncoder(handle_unknown='ignore'), categorical_features)
+                    ]
+                )
+
+                # Build full pipeline: preprocessing + regression model
+                model = Pipeline(steps=[
+                    ('preprocessor', preprocessor),
+                    ('regressor', XGBRegressor(max_depth=3, n_estimators=100, random_state=42))
+                ])
+
+                # Split data into train and test sets
+                X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+                # Train the model
+                model.fit(X_train, y_train)
+                score = model.score(X_test, y_test)
+
+                # Make predictions on test set
+                y_pred = model.predict(X_test)
+
+                # Calculate evaluation metrics
+                mae = mean_absolute_error(y_test, y_pred)
+                mse = mean_squared_error(y_test, y_pred)
+
+                # Show model performance
+                st.write(f"Model R^2 score on test set: {score:.4f}")
+                st.write(f"Mean Absolute Error (MAE): {mae:.4f}")
+                st.write(f"Mean Squared Error (MSE): {mse:.4f}")
+
+                # Save model and feature info in session state
+                st.session_state["trained_model"] = model
+                st.session_state["numeric_features"] = numeric_features
+                st.session_state["categorical_features"] = categorical_features
+                st.session_state["selected_features"] = features
+                st.session_state["df"] = df
+
+            # Prediction section: only show if model is trained
+            if st.session_state.get("trained_model") is not None:
+                st.subheader("Make a Prediction")
+                input_data = {}
+                df_for_input = st.session_state["df"]
+                numeric_features = st.session_state["numeric_features"]
+                categorical_features = st.session_state["categorical_features"]
+                selected_features = st.session_state["selected_features"]
+
+                # Input widgets for each feature
+                for feature in selected_features:
+                    if feature in numeric_features:
+                        val = st.number_input(f"Input value for {feature}", value=float(df_for_input[feature].mean()))
+                    else:
+                        val = st.selectbox(f"Input value for {feature}", options=df_for_input[feature].unique())
+                    input_data[feature] = val
+
+                # Initialize prediction result in session state
+                if "prediction_result" not in st.session_state:
+                    st.session_state["prediction_result"] = None
+
+                # Button to make prediction
+                if st.button("Predict", key="predict_btn"):
+                    input_df = pd.DataFrame([input_data])
+                    pred = st.session_state["trained_model"].predict(input_df)[0]
+                    st.session_state["prediction_result"] = f"Predicted value: {pred:.4f}"
+
+                # Show prediction result
+                if st.session_state.get("prediction_result"):
+                    st.write(st.session_state["prediction_result"])
+```
+</details>
+
+20. Finally, we need to create the main app file that will render our views. Create a file named `main.py` in the root of the project. Make all the necessary imports, can you guess them?
+
+<details>
+    <summary>Reveal</summary>
+
+```python
+import streamlit as st
+from views.house_price import run_house_price_app
+from views.custom_linear_app import custom_model_linear_regression_app
+from views.custom_xgboost import custom_model_xgboost_app
+from configs.config import HOUSE_PRICE_TAB, CUSTOM_APP_TAB, XGBOOST_APP_TAB
+```
+</details>
+
+21. Our landing page needs a title and a sidebar for navifation with radio buttons for each view. Can you do it?
+
+<details>
+    <summary>Reveal</summary>
+
+```python
+
+# Configure Streamlit page settings
+st.set_page_config(page_title="House Prices App", layout="wide")
+
+# Main page title
+st.title("Linear Regression & XGBoost Module")
+
+# Tab names for sidebar navigation
+tab_names = [HOUSE_PRICE_TAB, CUSTOM_APP_TAB, XGBOOST_APP_TAB, "About"]
+
+# Sidebar for navigation between tabs
+with st.sidebar:
+    st.header("Navigation")
+    selected_tab = st.radio("Select a tab:", tab_names, index=0)
+
+```
+
+22. Now we need to render the views based on the selected tab, can you do it?
+
+Note: We need an extra tab for the about page.
+
+<details>
+    <summary>Reveal</summary>
+
+```python
+# Display content based on selected tab
+if selected_tab == tab_names[0]:
+    st.session_state["selected_tab"] = HOUSE_PRICE_TAB
+    run_house_price_app()  # House price prediction module
+elif selected_tab == tab_names[1]:
+    st.session_state["selected_tab"] = CUSTOM_APP_TAB
+    custom_model_linear_regression_app()  # Custom linear regression module
+elif selected_tab == tab_names[2]:
+    st.session_state["selected_tab"] = XGBOOST_APP_TAB
+    custom_model_xgboost_app()  # Custom XGBoost module
+elif selected_tab == tab_names[3]:
+    st.session_state["selected_tab"] = "About"
+    st.header("About")
+    st.write("This app demonstrates house price prediction using Streamlit.")  # About section
+
+```
+</details>

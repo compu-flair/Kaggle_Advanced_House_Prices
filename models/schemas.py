@@ -27,7 +27,7 @@ FEATURES = [
 
 # Pydantic model for validating prediction requests.
 # Each field corresponds to a feature, with type and constraints.
-class GaragePredictRequest(BaseModel):
+class PredictionRequest(BaseModel):
     AllSF: confloat(ge=0)                     # Total square footage
     OverallQual: conint(ge=1, le=10)          # Overall quality (1-10)
     NeighborPrice: confloat(ge=0)             # Neighborhood average price
