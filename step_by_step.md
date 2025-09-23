@@ -1921,12 +1921,18 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 61. Sounds great, now we can train our model. Can you start by Linear Regression and plot the regression line?
 
+
+Note: We need to save our model in `models/linear_regression_model.pkl` for future use.
+
 <details>
     <summary>Reveal</summary>
 
 ```python
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
+import pickle
+import os
+
 
 # Fit linear regression
 linreg = LinearRegression()
@@ -1938,6 +1944,10 @@ y_pred_linreg = linreg.predict(X_test)
 # Evaluate performance
 rmse_linreg = mean_squared_error(y_test, y_pred_linreg, squared=False)
 print("Linear Regression Test RMSE:", rmse_linreg)
+
+# Save the model
+with open(os.path.join('models', 'linear_regression_model.pkl'), 'wb') as f:
+    pickle.dump(linreg, f)
 
 # Plot results
 plt.figure(figsize=(6, 6))
@@ -2026,3 +2036,5 @@ submission.to_csv(os.path.join('data', 'submission_Ardavan.csv'), index=False)
 ```
 </details>
 
+
+## Step 2: Streamlit App
