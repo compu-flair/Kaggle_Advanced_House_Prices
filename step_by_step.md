@@ -2093,7 +2093,7 @@ FEATURES = [
     ("YearBuilt", conint(ge=1800, le=2024)),  # Year built, between 1800 and 2024
 ]
 ```
-
+</details>
 
 
 3. Lovely, now it's time to create the Pydantic model for our features. Create a class named `PredictionRequest` that inherits from `BaseModel` and it's attributes are the features we defined in the previous step.
@@ -2701,6 +2701,8 @@ with st.sidebar:
     selected_tab = st.radio("Select a tab:", tab_names, index=0)
 
 ```
+</details>
+
 
 22. Now we need to render the views based on the selected tab, can you do it?
 
@@ -2727,3 +2729,6 @@ elif selected_tab == tab_names[3]:
 
 ```
 </details>
+
+
+Congratulations, you have successfully created a Streamlit app for house price prediction using linear regression and XGBoost models. You can run the app using the command `streamlit run main.py` in your terminal. Enjoy exploring and predicting house prices!
